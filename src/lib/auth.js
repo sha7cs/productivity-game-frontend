@@ -10,3 +10,8 @@ export function getUserFromToken(){
     const token = localStorage.getItem('access_token')
     return token? jwtDecode(token) : null
 }
+
+export function clearTokens(){
+    localStorage.removeItem('access_token')
+    localStorage.removeItem('refresh_token')
+}

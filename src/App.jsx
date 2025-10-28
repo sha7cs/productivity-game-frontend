@@ -5,11 +5,14 @@ import ChallengeDetail from './components/ChallengeDetail/ChallengeDetail'
 import GoalForm from './components/GoalForm/GoalForm'
 import ConfirmDelete from './components/GoalForm/ConfirmDelete'
 import Login from './components/Authentication/Login'
+import NavBar from './components/NavBar/NavBar'
+import { getUserFromToken } from './lib/auth'
 
 function App() {
-  const [user,setUser] = useState({})
+  const [user,setUser] = useState(getUserFromToken())
   return (
     <Router>
+      <NavBar setUser={setUser} user={user}/>
       <Routes>
         <Route path='/challenges' element={<ChallengeList />} />
         <Route path='/challenges/:challengeId' element={<ChallengeDetail />} />
