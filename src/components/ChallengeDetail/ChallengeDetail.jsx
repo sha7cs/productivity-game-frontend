@@ -15,7 +15,7 @@ function ChallengeDetail() {
         "start_date": "",
         "end_date": "",
         "join_code": "",
-        "is_active": '',
+        "is_active": true,
         "created_by": '',
         "winner": null
     })
@@ -40,7 +40,7 @@ function ChallengeDetail() {
             </div>
         )
     }
-    
+
     return (
         <div className='challenge-detail'>
             {challenge.name != ""
@@ -77,7 +77,7 @@ function ChallengeDetail() {
                                         return (
                                             <li>
                                                 {goal.title}
-                                                <button>edit</button>
+                                                <Link to={`/challenges/${challenge.id}/edit-goal/${goal.id}`}><button>edit</button></Link>
                                             </li>
                                         )
                                     })

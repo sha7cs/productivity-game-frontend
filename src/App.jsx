@@ -11,6 +11,7 @@ function App() {
         <Route path='/challenges' element={<ChallengeList />} />
         <Route path='/challenges/:challengeId' element={<ChallengeDetail />} />
         <Route path='/challenges/:challengeId/add-goal'element={<GoalForm/>} />
+        <Route path='/challenges/:challengeId/edit-goal/:goalId'element={<GoalForm/>} />
       </Routes>
     </Router>
   )

@@ -1,5 +1,5 @@
 import axios from 'axios'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router'
 // {
 //     "title": "ask a question",
@@ -10,7 +10,7 @@ import { useNavigate, useParams } from 'react-router'
 // }
 
 function GoalForm() {
-    const { challengeId } = useParams()
+    const { challengeId , goalId} = useParams()
     const [errors, setErrors] = useState('')
 
     const [formData, setFormData] = useState({
@@ -21,14 +21,30 @@ function GoalForm() {
     })
 
     const navigate = useNavigate()
+
+    async function getGoal(){
+        const response = await axios.get(`http://127.0.0.1:8000/api/challenges/${challengeId}/goals/${goalId}/`)
+        setFormData(response.data)
+    }
+
+    useEffect(()=>{
+        if(goalId){
+            getGoal()
+        }
+    },[])
+
     function handleChange(event) {
         setFormData({ ...formData, [event.target.name]: event.target.value })
-        console.log(formData)
     }
     async function handleSubmit(event) {
-        event.preventDefault()
         try {
-            const response = await axios.post(`http://127.0.0.1:8000/api/challenges/${challengeId}/goals/`, formData)
+            event.preventDefault()
+            let response = {}
+            if(goalId){
+                response = await axios.put(`http://127.0.0.1:8000/api/challenges/${challengeId}/goals/${goalId}/`, formData)
+            }else{
+                response = await axios.post(`http://127.0.0.1:8000/api/challenges/${challengeId}/goals/`, formData)
+            }
             if (response.status === 201 || response.status === 200) {
                 navigate(`/challenges/${challengeId}`)
             }
@@ -46,23 +62,24 @@ function GoalForm() {
     }
     return (
         <div>
-            <form on onSubmit={handleSubmit}>
+            <h1>{goalId? "Edit Goal" : "Add Goal"}</h1>
+            <form onSubmit={handleSubmit}>
                 <div className='goal-title-div'>
                     <label htmlFor="title">Goal title</label>
-                    <input onChange={handleChange} type="text" name="title" id="title" />
+                    <input value={formData.title} onChange={handleChange} type="text" name="title" id="title" />
                 </div>
 
                 <div className='goal-points-div'>
                     <label htmlFor="points">points</label>
-                    <input onChange={handleChange} type="number" name="points" id="points" />
+                    <input value={formData.points} onChange={handleChange} type="number" name="points" id="points" />
                 </div>
 
                 <div className='goal-description-div'>
                     <label htmlFor="description">description</label>
-                    <textarea onChange={handleChange} type="text" name="description" id="description" />
+                    <textarea value={formData.description} onChange={handleChange} type="text" name="description" id="description" />
                 </div>
 
-                <button type='submit'>Add Goal</button>
+                <button type='submit'>{goalId? "Edit Goal" : "Add Goal"}</button>
             </form>
         </div>
     )
