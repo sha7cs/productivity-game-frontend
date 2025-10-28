@@ -1,6 +1,9 @@
 import React, { use, useEffect, useState } from 'react'
 import { useParams } from 'react-router'
 import axios from 'axios'
+import { Link } from 'react-router'
+
+
 function ChallengeDetail() {
     const { challengeId } = useParams()
 
@@ -30,6 +33,14 @@ function ChallengeDetail() {
         getSingleChallenge()
     }, [])
 
+    if (errors) {
+        return (
+            <div>
+                <h3>{errors}</h3>
+            </div>
+        )
+    }
+    
     return (
         <div className='challenge-detail'>
             {challenge.name != ""
@@ -40,7 +51,7 @@ function ChallengeDetail() {
                     <h3>Join Code : {challenge.join_code}</h3>
                     <h3>created by you</h3>
                     <h3>started at: {challenge.start_date} and ends at {challenge.end_date}</h3>
-                    <h3>{challenge.winner == null? "no winner yet" : challenge.winner}</h3>
+                    <h3>{challenge.winner == null ? "no winner yet" : challenge.winner}</h3>
                     <h3>{challenge.is_active ? 'is active' : 'this challenge has ended'}</h3>
                     <h3> members: {
                         challenge.members.length
@@ -63,13 +74,19 @@ function ChallengeDetail() {
                             <ul>
                                 {
                                     challenge.goals.map(goal => {
-                                        return <li>{goal.title}</li>
+                                        return (
+                                            <li>
+                                                {goal.title}
+                                                <button>edit</button>
+                                            </li>
+                                        )
                                     })
                                 }
                             </ul>
                             :
                             'No assigned goals yet'
                     }</h3>
+                    <Link to={`/challenges/${challenge.id}/add-goal`}><button>Add Goal</button></Link>
                 </div>
                 :
                 <h3>Loading ...</h3>
