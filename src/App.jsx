@@ -1,11 +1,13 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router'
 import ChallengeList from './components/ChallengeList/ChallengeList'
 import ChallengeDetail from './components/ChallengeDetail/ChallengeDetail'
 import GoalForm from './components/GoalForm/GoalForm'
 import ConfirmDelete from './components/GoalForm/ConfirmDelete'
+import Login from './components/Authentication/Login'
 
 function App() {
+  const [user,setUser] = useState({})
   return (
     <Router>
       <Routes>
@@ -14,6 +16,8 @@ function App() {
         <Route path='/challenges/:challengeId/add-goal'element={<GoalForm/>} />
         <Route path='/challenges/:challengeId/edit-goal/:goalId'element={<GoalForm/>} />
         <Route path='/challenges/:challengeId/delete-goal/:goalId'element={<ConfirmDelete/>} />
+        {/* Auth */}
+        <Route path='/login' element={<Login setUser={setUser} />}/>
       </Routes>
     </Router>
   )
