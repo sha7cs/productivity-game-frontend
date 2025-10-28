@@ -59,7 +59,7 @@ function ChallengeDetail() {
                             <ul>
                                 {
                                     challenge.members.map(member => {
-                                        return <li>{member.user}</li>
+                                        return <li key={`member-${member.id}`}>{member.user}</li>
                                         // will see how to access the username instead of the id
                                     })
                                 }
@@ -75,9 +75,10 @@ function ChallengeDetail() {
                                 {
                                     challenge.goals.map(goal => {
                                         return (
-                                            <li>
+                                            <li key={`goal-${goal.id}`}>
                                                 {goal.title}
                                                 <Link to={`/challenges/${challenge.id}/edit-goal/${goal.id}`}><button>edit</button></Link>
+                                                <Link to={`/challenges/${challenge.id}/delete-goal/${goal.id}`}><button style={{color:'red'}}>Delete</button></Link>
                                             </li>
                                         )
                                     })
