@@ -7,6 +7,7 @@ import ConfirmDelete from './components/GoalForm/ConfirmDelete'
 import Login from './components/Authentication/Login'
 import NavBar from './components/NavBar/NavBar'
 import { getUserFromToken } from './lib/auth'
+import SignUp from './components/Authentication/SignUp'
 
 function App() {
   const [user,setUser] = useState(getUserFromToken())
@@ -21,6 +22,7 @@ function App() {
         <Route path='/challenges/:challengeId/delete-goal/:goalId'element={<ConfirmDelete/>} />
         {/* Auth */}
         <Route path='/login' element={<Login setUser={setUser} />}/>
+        <Route path='/signup' element={<SignUp/>}/>
       </Routes>
     </Router>
   )
