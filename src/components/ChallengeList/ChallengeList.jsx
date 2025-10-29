@@ -16,6 +16,7 @@ function ChallengeList() {
     return (
         <div>
             <h1>All Challenges</h1>
+            <Link to={`/challenges/add`}><button>Add a Challenge</button></Link>
             <div className='challenges'>
                 {
                     challengeList
@@ -25,9 +26,10 @@ function ChallengeList() {
                             <div>
                                 {
                                     challengeList.map(challenge => {
-                                        return <Link to={`/challenges/${challenge.id}`} key={challenge.id}>
-                                            <p>{challenge.name} challenge</p>
-                                        </Link>
+                                        return (
+                                            <Link to={`/challenges/${challenge.id}`} key={challenge.id}>
+                                                <p>{challenge.name} challenge</p>
+                                            </Link>)
                                     })
                                 }
                             </div>
