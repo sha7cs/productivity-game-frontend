@@ -47,6 +47,8 @@ function ChallengeDetail() {
                 ?
                 <div>
                     <h1>{challenge.name}</h1>
+                    <Link to={`/challenges/${challengeId}/edit`}><button>edit</button></Link>
+                    <Link to={`/challenges`}><button style={{color:'red'}}>Delete</button></Link>
                     <h3>{challenge.description}</h3>
                     <h3>Join Code : {challenge.join_code}</h3>
                     <h3>created by you</h3>
