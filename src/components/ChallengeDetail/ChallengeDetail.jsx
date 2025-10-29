@@ -6,6 +6,7 @@ import { Link } from 'react-router'
 
 function ChallengeDetail() {
     const { challengeId } = useParams()
+    const [errors, setErrors] = useState('')
 
     const [challenge, setChallenge] = useState({
         "members": [],
@@ -19,12 +20,12 @@ function ChallengeDetail() {
         "created_by": '',
         "winner": null
     })
-    const [errors, setErrors] = useState('')
 
     async function getSingleChallenge() {
         try {
             const response = await axios.get(`http://127.0.0.1:8000/api/challenges/${challengeId}/`)
             setChallenge(response.data)
+            return response.data
         } catch (error) {
             setErrors(error.response.data.error)
         }
@@ -40,7 +41,6 @@ function ChallengeDetail() {
             </div>
         )
     }
-
     return (
         <div className='challenge-detail'>
             {challenge.name != ""
@@ -48,7 +48,7 @@ function ChallengeDetail() {
                 <div>
                     <h1>{challenge.name}</h1>
                     <Link to={`/challenges/${challengeId}/edit`}><button>edit</button></Link>
-                    <Link to={`/challenges`}><button style={{color:'red'}}>Delete</button></Link>
+                    <Link to={`/challenges/${challengeId}/confirm-delete`}><button style={{color:'red'}}>Delete</button></Link>                    
                     <h3>{challenge.description}</h3>
                     <h3>Join Code : {challenge.join_code}</h3>
                     <h3>created by you</h3>
