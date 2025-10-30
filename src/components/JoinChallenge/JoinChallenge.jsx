@@ -1,6 +1,7 @@
 import axios from 'axios'
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router'
+import { authRequest } from '../../lib/auth'
 
 function JoinChallenge({user}) {
     const [joinCode, setJoinCode] = useState('')
@@ -15,7 +16,7 @@ function JoinChallenge({user}) {
     async function handleSubmit(event){
         event.preventDefault()
         try{
-            const response = await axios.post(`http://127.0.0.1:8000/api/challenges/join/${user.user_id}/`,{ joinCode:joinCode })
+            const response = await authRequest({method:'post', url:`http://127.0.0.1:8000/api/challenges/join/${user.user_id}/`,data:{ joinCode:joinCode }})
             if(response.status === 201){
                 navigate(`/challenges/${response.data.challenge}`)
             }

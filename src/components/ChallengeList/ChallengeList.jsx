@@ -2,11 +2,12 @@ import axios from 'axios'
 import React, { useEffect } from 'react'
 import { useState } from 'react'
 import { Link } from 'react-router'
+import { authRequest } from '../../lib/auth'
 function ChallengeList() {
     const [challengeList, setChallengeList] = useState(null) // not an empty array so that when its loading it displays 'loading' for user
 
     async function getAllChallenges() {
-        const response = await axios.get(`http://127.0.0.1:8000/api/challenges/`)
+        const response = await authRequest({method:'get',url:`http://127.0.0.1:8000/api/challenges/`})
         setChallengeList(response.data)
     }
     useEffect(() => {

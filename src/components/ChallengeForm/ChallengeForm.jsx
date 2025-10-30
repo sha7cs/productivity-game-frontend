@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router'
 import axios from 'axios'
+import { authRequest } from '../../lib/auth'
 
 function ChallengeForm({ user }) {
     const { challengeId } = useParams()
@@ -34,14 +35,14 @@ function ChallengeForm({ user }) {
         try {
             let response = {}
             if (challengeId) {
-                response = await axios.put(`http://127.0.0.1:8000/api/challenges/${challengeId}/`, formData)
+                response = await authRequest({method:'put',url:`http://127.0.0.1:8000/api/challenges/${challengeId}/`,data:formData})
             } else {
-                response = await axios.post('http://127.0.0.1:8000/api/challenges/', formData)
+                response = await authRequest({method:'post',url:'http://127.0.0.1:8000/api/challenges/',data:formData})
             }
             if (response.status === 201 || response.status === 200) {
                 navigate(`/challenges/${response.data.id}`)
             }
-        } catch (error) {
+        } catch(error) {
             console.log(error)
             setErrors(error.response.data.error)
         }

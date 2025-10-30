@@ -1,13 +1,7 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router'
-// {
-//     "title": "ask a question",
-//     "points": 7,
-//     "description": "someeething",
-//     "created_at": "2025-10-26",
-//     "challenge": 1
-// }
+import { authRequest } from '../../lib/auth'
 
 function GoalForm() {
     const { challengeId , goalId} = useParams()
@@ -23,7 +17,7 @@ function GoalForm() {
     const navigate = useNavigate()
 
     async function getGoal(){
-        const response = await axios.get(`http://127.0.0.1:8000/api/challenges/${challengeId}/goals/${goalId}/`)
+        const response = await authRequest({method:'get',url:`http://127.0.0.1:8000/api/challenges/${challengeId}/goals/${goalId}/`})
         setFormData(response.data)
     }
 
@@ -41,9 +35,9 @@ function GoalForm() {
             event.preventDefault()
             let response = {}
             if(goalId){
-                response = await axios.put(`http://127.0.0.1:8000/api/challenges/${challengeId}/goals/${goalId}/`, formData)
+                response = await authRequest({method:'put',url:`http://127.0.0.1:8000/api/challenges/${challengeId}/goals/${goalId}/`, data:formData})
             }else{
-                response = await axios.post(`http://127.0.0.1:8000/api/challenges/${challengeId}/goals/`, formData)
+                response = await authRequest({method:'post',url:`http://127.0.0.1:8000/api/challenges/${challengeId}/goals/`, data:formData})
             }
             if (response.status === 201 || response.status === 200) {
                 navigate(`/challenges/${challengeId}`)

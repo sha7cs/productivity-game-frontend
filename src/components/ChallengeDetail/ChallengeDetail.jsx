@@ -2,7 +2,7 @@ import React, { use, useEffect, useState } from 'react'
 import { useParams } from 'react-router'
 import axios from 'axios'
 import { Link } from 'react-router'
-
+import { authRequest } from '../../lib/auth'
 
 function ChallengeDetail() {
     const { challengeId } = useParams()
@@ -23,7 +23,7 @@ function ChallengeDetail() {
 
     async function getSingleChallenge() {
         try {
-            const response = await axios.get(`http://127.0.0.1:8000/api/challenges/${challengeId}/`)
+            const response = await authRequest({method:'get',url:`http://127.0.0.1:8000/api/challenges/${challengeId}/`})
             setChallenge(response.data)
             return response.data
         } catch (error) {
