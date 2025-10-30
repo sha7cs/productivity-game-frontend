@@ -10,9 +10,11 @@ import { getUserFromToken } from './lib/auth'
 import SignUp from './components/Authentication/SignUp'
 import ChallengeForm from './components/ChallengeForm/ChallengeForm'
 import DeleteChallenge from './components/ChallengeForm/DeleteChallenge'
+import JoinChallenge from './components/JoinChallenge/JoinChallenge'
 
 function App() {
   const [user,setUser] = useState(getUserFromToken())
+  console.log(user)
   return (
     <Router>
       <NavBar setUser={setUser} user={user}/>
@@ -24,7 +26,8 @@ function App() {
         <Route path='/challenges/:challengeId/add-goal'element={<GoalForm/>} />
         <Route path='/challenges/:challengeId/edit-goal/:goalId'element={<GoalForm/>} />
         <Route path='/challenges/:challengeId/delete-goal/:goalId'element={<DeleteGoal/>} />
-        <Route path='/challenges/:challengeId/confirm-delete' element={<DeleteChallenge />} />      
+        <Route path='/challenges/:challengeId/confirm-delete' element={<DeleteChallenge />} /> 
+        <Route path='/challenges/join' element={<JoinChallenge user={user}/>}/>     
         {/* Auth */}
         <Route path='/login' element={<Login setUser={setUser} />}/>
         <Route path='/signup' element={<SignUp/>}/>
