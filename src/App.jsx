@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import './App.css'
 import { BrowserRouter as Router, Routes, Route } from 'react-router'
 import ChallengeList from './components/ChallengeList/ChallengeList'
 import ChallengeDetail from './components/ChallengeDetail/ChallengeDetail'
@@ -14,7 +15,6 @@ import JoinChallenge from './components/JoinChallenge/JoinChallenge'
 
 function App() {
   const [user,setUser] = useState(getUserFromToken())
-  console.log(user)
   return (
     <Router>
       <NavBar setUser={setUser} user={user}/>
@@ -27,7 +27,7 @@ function App() {
         <Route path='/challenges/:challengeId/edit-goal/:goalId'element={<GoalForm/>} />
         <Route path='/challenges/:challengeId/delete-goal/:goalId'element={<DeleteGoal/>} />
         <Route path='/challenges/:challengeId/confirm-delete' element={<DeleteChallenge />} /> 
-        <Route path='/challenges/join' element={<JoinChallenge user={user}/>}/>     
+        <Route path='/challenges/join' element={<JoinChallenge />}/>     
         {/* Auth */}
         <Route path='/login' element={<Login setUser={setUser} />}/>
         <Route path='/signup' element={<SignUp/>}/>

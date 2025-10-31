@@ -55,6 +55,7 @@ function ChallengeDetail() {
                     <h3>started at: {challenge.start_date} and ends at {challenge.end_date}</h3>
                     <h3>{challenge.winner == null ? "no winner yet" : challenge.winner}</h3>
                     <h3>{challenge.is_active ? 'is active' : 'this challenge has ended'}</h3>
+                    {/* i need to make a component for a single goal? */}
                     <h3> members: {
                         challenge.members.length
                             ?
@@ -70,6 +71,7 @@ function ChallengeDetail() {
                             'No assigned members yet'
                     }
                     </h3>
+                    {/* i need to make a component for a single goal? */}
                     <h3> goals: {
                         challenge.goals.length
                             ?
