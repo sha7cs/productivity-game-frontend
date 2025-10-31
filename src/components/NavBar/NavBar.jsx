@@ -10,12 +10,13 @@ function NavBar({ user, setUser }) {
     return (<>
         {user
             ?
-            <LogoutButton setUser={setUser} />
+            <LogoutButton setUser={setUser} className='logout-btn'/>
             :
             <>
                 <Link to={'/signup'}>Signup</Link>
                 <Link to={'/login'}>Login</Link>
-            </>}
+            </>
+        }
         <nav className="navbar">
             <NavLink
                 to="/"

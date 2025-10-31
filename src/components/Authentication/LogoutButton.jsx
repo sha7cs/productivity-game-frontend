@@ -2,7 +2,7 @@ import React from 'react'
 import { useNavigate } from 'react-router'
 import { clearTokens } from '../../lib/auth'
 
-function LogoutButton({setUser}) {
+function LogoutButton({setUser, className}) {
     const navigate = useNavigate()
     function handleLogout(){
         clearTokens()
@@ -11,7 +11,7 @@ function LogoutButton({setUser}) {
     }
   return (
     <div>
-        <button onClick={handleLogout}>Logout</button>
+        <button onClick={handleLogout} className={className}>Logout</button>
     </div>
   )
 }
