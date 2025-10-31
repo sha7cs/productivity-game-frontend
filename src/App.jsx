@@ -19,7 +19,7 @@ function App() {
     <Router>
       <NavBar setUser={setUser} user={user}/>
       <Routes>
-        <Route path='/challenges' element={<ChallengeList />} />
+        <Route path='/challenges' element={<ChallengeList user={user} />} />
         <Route path='/challenges/:challengeId' element={<ChallengeDetail />} />
         <Route path='/challenges/add' element={<ChallengeForm user={user}/>} />
         <Route path='/challenges/:challengeId/edit' element={<ChallengeForm />} />
