@@ -7,12 +7,13 @@ import './challenge-detail.sass'
 import { FaEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import { IoArrowBack } from "react-icons/io5";
+import SingleGoal from './SingleGoal'
+import MembersRank from './MembersRank'
 
 function ChallengeDetail() {
     const { challengeId } = useParams()
     const [errors, setErrors] = useState('')
     const navigate = useNavigate();
-    const rankIcons = ['🥇','🥈','🥉']
 
     const [challenge, setChallenge] = useState({
         "members": [],
@@ -35,7 +36,6 @@ function ChallengeDetail() {
 
             const sortedMembers = [...response.data.members].sort((a,b) => b.total_points - a.total_points)
             setMembers(sortedMembers)
-            console.log(sortedMembers)
             return response.data
         } catch (error) {
             setErrors(error.response.data.error)
@@ -44,7 +44,6 @@ function ChallengeDetail() {
 
     useEffect(() => {
         getSingleChallenge()
-        
     }, [])
 
     function getDaysRemaining(startDate, endDate) {
@@ -54,9 +53,7 @@ function ChallengeDetail() {
         const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); // convert ms to days
         return diffDays > 0 ? diffDays : 0;
     }
-    function handleGoalCheck(goalId) {
-        console.log('check a goal')
-    }
+   
 
 
     if (errors) {
@@ -80,6 +77,7 @@ function ChallengeDetail() {
                             <Link to={`/challenges/${challengeId}/confirm-delete`}><button style={{ backgroundColor:'red', color: 'white' }}><MdDelete size={20} /></button></Link>
                         </div>
                     </div>
+                    
                     <div className='challenge-detail-card'>
                         {/* i need to make a component for a single goal? */}
                         <div className='goals'>
@@ -90,26 +88,7 @@ function ChallengeDetail() {
                                     <ul>
                                         {
                                             challenge.goals.map(goal => {
-                                                return (
-                                                    <li key={`goal-${goal.id}`} className='goal-item'>
-                                                        <div className="goal-content">
-                                                            <div className='goal-header'>
-                                                                <span className="goal-title">{goal.title}</span>
-                                                                <Link to={`/challenges/${challenge.id}/edit-goal/${goal.id}`}><FaEdit size={20} color='#a6a6a6'/></Link>
-                                                            </div>
-                                                            <p className="goal-description">
-                                                                {goal.description}
-                                                            </p>
-                                                        </div>
-                                                        <input
-                                                            type="checkbox"
-                                                            className="goal-checkbox"
-                                                            onChange={() => handleGoalCheck(goal.id)}
-                                                        />
-
-                                                        {/* <Link to={`/challenges/${challenge.id}/delete-goal/${goal.id}`}><button style={{ color: 'red' }}>Delete</button></Link> */}
-                                                    </li>
-                                                )
+                                                return ( <SingleGoal goal={goal} />)
                                             })
                                         }
                                     </ul>
@@ -129,25 +108,20 @@ function ChallengeDetail() {
                                 {
                                     members.length
                                         ?
-                                        <ul>
-                                            {
-                                                members.map((member,index) => {
-                                                    return <li key={`member-${member.id}`}>
-                                                        {rankIcons[index] || ""} {member.user} ({member.total_points})
-                                                    </li>
-                                                    // maybe i will make it display only top three and if they want to see all the members they will be on the modal that will have allll the details 
-                                                })
-                                            }
-                                        </ul>
+                                        <MembersRank members={members}/>
                                         :
                                         'No assigned members yet'
                                 }
                             </div>
+
                             <div className='day-remaining'>
                                 <h3>Days Remaining</h3>
                                 <h3>⏰ {getDaysRemaining(challenge.start_date, challenge.end_date)} days ⏰</h3>
                             </div>
-                            <a href="">History</a>
+
+                            {/* i want to make a page that will list all the goals you and the members completed based on date  */}
+                            <a href="">History</a> 
+
                             {/* just for now i will make it hidden but i will create a modal for ot later */}
                             <div className='challenge-info' hidden>
                                 <h3>{challenge.description}</h3>
