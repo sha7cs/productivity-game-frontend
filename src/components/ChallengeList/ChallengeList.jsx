@@ -28,6 +28,13 @@ function ChallengeList({user}) {
                     <Link to={'/challenges/join'} title="Search for Challenge"><FaSearch size={30}/></Link>
                 </div>
             </div>
+            <hr />
+            <div className='header-challenges sub'>
+                <h2 className='page-sub-title'>Ongoing</h2> {/* i will make it so i have multiple sections one on going one old one created by you ? */}
+                <div>
+                    <Link to={'/challenges/join'}><button>Join a Challenge</button></Link>
+                </div>
+            </div>
             <div className='challenges'>
                 {
                     challengeList
