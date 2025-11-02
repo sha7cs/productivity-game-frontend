@@ -1,0 +1,106 @@
+$green: #4cd964
+$yellow: #ffcc00
+$blue: #007aff
+$gray-text: #a6a6a6
+
+.challenge-detail-card
+    display: flex
+    text-align: center
+    background-color: #fff
+    border-radius: 0.8rem
+    border: 0.1rem solid black
+    box-shadow: 4px 4px 0 #000
+    padding: 0.5rem
+    width: 75rem
+    height: 35rem
+    gap: 1rem
+
+.challenge-detail-header
+    display: flex
+    justify-content: space-between
+    align-items: center
+    margin-top: 1rem
+
+    .back-btn
+        background: none
+        color: black
+    .actions
+        display: flex
+        gap: 0.5rem
+
+.goals
+    display: flex
+    justify-content: start
+    text-align: start
+    flex-direction: column
+    width: 80%
+    color: $blue
+    h3
+        text-align: center
+        color: black
+        font-size: 3rem
+        margin: 0
+
+    .goal-item
+        display: flex
+        justify-content: space-between
+        align-items: center
+        gap: 0.8rem
+        border-bottom: 2px solid #000
+        padding: 0.8rem 0
+
+    .goal-checkbox
+        appearance: none
+        background-color: white
+        border: 3px solid $green
+        border-radius: 0.2rem
+        width: 26px
+        height: 26px
+        accent-color: $green
+        cursor: pointer
+
+    .goal-content
+        flex: 1
+
+    .goal-header
+        display: flex
+        align-items: center
+
+    .goal-title
+        font-weight: 600
+        color: $blue
+        margin-right: 0.6rem
+        font-size: 1.4rem
+
+    .goal-description
+        color: #a6a6a6
+        font-size: 0.9rem
+
+    .add-goal
+        display: flex
+        justify-self: flex-end
+        justify-content: center
+        background-color: $green
+        border: 0.1rem solid black
+        width: 30%
+
+.challenge-details
+    flex: 1
+    display: flex
+    flex-direction: column
+
+    div
+        padding: 0.2rem
+        background-color: #f6f6f6
+        border-radius: 0.8rem
+        color: $blue
+        font-size: 1rem
+        width: 93%
+        padding: 0.2rem
+        margin: 0.2rem
+
+    .points
+        h4
+            color: $yellow
+            font-size: 3rem
+            margin: 0.3rem
