@@ -1,5 +1,5 @@
 import axios from 'axios'
-import React, { useEffect } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { useState } from 'react'
 import { Link } from 'react-router'
 import { authRequest } from '../../lib/auth'
@@ -7,8 +7,10 @@ import './challenge-list.sass'
 import { IoIosAddCircle } from "react-icons/io";
 import { FaSearch } from "react-icons/fa";
 import ChallengeCard from '../ChallengeCard/ChallengeCard'
+import { UserContext } from '../../App'
 
-function ChallengeList({user}) {
+function ChallengeList() {
+    const { user } = useContext(UserContext)
     const [challengeList, setChallengeList] = useState(null) // not an empty array so that when its loading it displays 'loading' for user
 
     async function getAllChallenges() {

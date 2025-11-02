@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router'
 import axios from 'axios'
 import { authRequest } from '../../lib/auth'
+import { UserContext } from '../../App'
 
-function ChallengeForm({ user }) {
+function ChallengeForm() {
+    const { user } = useContext(UserContext)
     const { challengeId } = useParams()
     const [errors, setErrors] = useState('')
     const navigate = useNavigate()

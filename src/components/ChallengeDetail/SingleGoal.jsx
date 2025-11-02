@@ -1,12 +1,35 @@
-import React from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { FaEdit } from "react-icons/fa";
 import { Link } from 'react-router';
+import { authRequest } from '../../lib/auth';
+import { UserContext } from '../../App';
 
-function SingleGoal({goal}) {
+function SingleGoal({goal , handleOnComplete}) {
+    const [completedGoals, setCompletedGoals] = useState([])
+    const { user, getUserProfile } = useContext(UserContext)
 
-     function handleGoalCheck(goalId) {
-        console.log('check a goal')
+    async function handleGoalCheck(goalId) {
+        try {
+            const response = await authRequest({ method: 'post', url: `http://127.0.0.1:8000/api/challenges/${goal.challenge}/goals/${goal.id}/complete/` })
+            handleOnComplete()
+        } catch(errors){
+            console.log(errors)
+        }
     }
+    // i will use this to get the completed goals
+    async function getCompletedGoals() {
+        try {
+            const response = await authRequest({ method: 'get', url: `http://127.0.0.1:8000/api/challenges/${goal.challenge}/goals/complete/`})
+            response.data.length ? setCompletedGoals(response.data):''
+            console.log(response.data)
+        } catch(errors){
+            console.log(errors)
+        }
+    }
+
+    useEffect(()=>{
+        getCompletedGoals()
+    },[])
 
     return (
         <li key={`goal-${goal.id}`} className='goal-item'>

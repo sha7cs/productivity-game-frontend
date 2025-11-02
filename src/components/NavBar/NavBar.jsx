@@ -1,12 +1,14 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Link, NavLink } from 'react-router'
 import LogoutButton from '../Authentication/LogoutButton'
 import './navbar.sass'
 import { IoMdHome } from "react-icons/io";
 import { GoGoal } from "react-icons/go";
 import { IoPerson } from "react-icons/io5";
+import { UserContext } from '../../App';
 
-function NavBar({ user, setUser }) {
+function NavBar() {
+    const { user , setUser} = useContext(UserContext)
     return (<>
         {user
             ?
