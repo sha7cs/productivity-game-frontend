@@ -12,6 +12,7 @@ function ChallengeDetail() {
     const { challengeId } = useParams()
     const [errors, setErrors] = useState('')
     const navigate = useNavigate();
+    const rankIcons = ['🥇','🥈','🥉']
 
     const [challenge, setChallenge] = useState({
         "members": [],
@@ -25,11 +26,16 @@ function ChallengeDetail() {
         "created_by": '',
         "winner": null
     })
+    const [members, setMembers] = useState([])
 
     async function getSingleChallenge() {
         try {
             const response = await authRequest({ method: 'get', url: `http://127.0.0.1:8000/api/challenges/${challengeId}/` })
             setChallenge(response.data)
+
+            const sortedMembers = [...response.data.members].sort((a,b) => b.total_points - a.total_points)
+            setMembers(sortedMembers)
+            console.log(sortedMembers)
             return response.data
         } catch (error) {
             setErrors(error.response.data.error)
@@ -38,6 +44,7 @@ function ChallengeDetail() {
 
     useEffect(() => {
         getSingleChallenge()
+        
     }, [])
 
     function getDaysRemaining(startDate, endDate) {
@@ -120,13 +127,15 @@ function ChallengeDetail() {
                             <div className='members'>
                                 <h3>Members Rank</h3>
                                 {
-                                    challenge.members.length
+                                    members.length
                                         ?
                                         <ul>
                                             {
-                                                challenge.members.map(member => {
-                                                    return <li key={`member-${member.id}`}>{member.user}</li>
-                                                    // will display them based on their rank
+                                                members.map((member,index) => {
+                                                    return <li key={`member-${member.id}`}>
+                                                        {rankIcons[index] || ""} {member.user} ({member.total_points})
+                                                    </li>
+                                                    // maybe i will make it display only top three and if they want to see all the members they will be on the modal that will have allll the details 
                                                 })
                                             }
                                         </ul>
