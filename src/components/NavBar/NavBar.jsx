@@ -8,39 +8,39 @@ import { IoPerson } from "react-icons/io5";
 import { UserContext } from '../../App';
 
 function NavBar() {
-    const { user , setUser} = useContext(UserContext)
+    const { user, setUser } = useContext(UserContext)
     return (<>
         {user
             ?
-            <LogoutButton setUser={setUser} className='logout-btn'/>
-            :
             <>
-                <Link to={'/signup'}>Signup</Link>
-                <Link to={'/login'}>Login</Link>
+                <LogoutButton setUser={setUser} className='logout-btn' />
+                <nav className="navbar">
+                    <NavLink
+                        to="/"
+                        className={({ isActive }) => (isActive ? "nav-icon active" : "nav-icon")}
+                    >
+                        <IoMdHome size={35} />
+                    </NavLink>
+
+                    <NavLink
+                        to="/challenges"
+                        className={({ isActive }) => (isActive ? "nav-icon active" : "nav-icon")}
+                    >
+                        <GoGoal size={35} />
+                    </NavLink>
+
+                    <NavLink
+                        to="/profile"
+                        className={({ isActive }) => (isActive ? "nav-icon active" : "nav-icon")}
+                    >
+                        <IoPerson size={35} />
+                    </NavLink>
+                </nav>
             </>
+            :
+            ''
         }
-        <nav className="navbar">
-            <NavLink
-                to="/"
-                className={({ isActive }) => (isActive ? "nav-icon active" : "nav-icon")}
-            >
-                <IoMdHome size={35} />
-            </NavLink>
 
-            <NavLink
-                to="/challenges"
-                className={({ isActive }) => (isActive ? "nav-icon active" : "nav-icon")}
-            >
-                <GoGoal size={35} />
-            </NavLink>
-
-            <NavLink
-                to="/profile"
-                className={({ isActive }) => (isActive ? "nav-icon active" : "nav-icon")}
-            >
-                <IoPerson size={35} />
-            </NavLink>
-        </nav>
     </>
     )
 }

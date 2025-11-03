@@ -14,7 +14,8 @@ import DeleteChallenge from './components/ChallengeForm/DeleteChallenge'
 import JoinChallenge from './components/JoinChallenge/JoinChallenge'
 import { authRequest } from './lib/auth'
 import { createContext } from 'react'
-
+import WelcomePage from './components/WelcomePage/WelcomePage'
+import ProtectedRoute from './components/Authentication/ProtectedRoute'
 export const UserContext = createContext()
 
 
@@ -38,15 +39,16 @@ function App() {
       <Router>
         <NavBar setUser={setUser} user={user} />
         <Routes>
-          <Route path='/challenges' element={<ChallengeList user={user} />} />
-          <Route path='/challenges/:challengeId' element={<ChallengeDetail user={user} />} />
-          <Route path='/challenges/add' element={<ChallengeForm user={user} />} />
-          <Route path='/challenges/:challengeId/edit' element={<ChallengeForm />} />
-          <Route path='/challenges/:challengeId/add-goal' element={<GoalForm />} />
-          <Route path='/challenges/:challengeId/edit-goal/:goalId' element={<GoalForm />} />
-          <Route path='/challenges/:challengeId/delete-goal/:goalId' element={<DeleteGoal />} />
-          <Route path='/challenges/:challengeId/confirm-delete' element={<DeleteChallenge />} />
-          <Route path='/challenges/join' element={<JoinChallenge />} />
+          <Route path='/' element={<WelcomePage/>}/>
+          <Route path='/challenges' element={<ProtectedRoute> <ChallengeList user={user} /> </ProtectedRoute>} />
+          <Route path='/challenges/:challengeId' element={<ProtectedRoute><ChallengeDetail user={user} /> </ProtectedRoute>} />
+          <Route path='/challenges/add' element={<ProtectedRoute><ChallengeForm user={user}/> </ProtectedRoute>} />
+          <Route path='/challenges/:challengeId/edit' element={<ProtectedRoute> <ChallengeForm /> </ProtectedRoute>} />
+          <Route path='/challenges/:challengeId/add-goal' element={<ProtectedRoute><GoalForm /></ProtectedRoute>} />
+          <Route path='/challenges/:challengeId/edit-goal/:goalId' element={<ProtectedRoute><GoalForm /></ProtectedRoute>} />
+          <Route path='/challenges/:challengeId/delete-goal/:goalId' element={<ProtectedRoute><DeleteGoal /></ProtectedRoute>} />
+          <Route path='/challenges/:challengeId/confirm-delete' element={<ProtectedRoute><DeleteChallenge /></ProtectedRoute>} />
+          <Route path='/challenges/join' element={<ProtectedRoute><JoinChallenge /></ProtectedRoute>} />
           {/* Auth */}
           <Route path='/login' element={<Login setUser={setUser} />} />
           <Route path='/signup' element={<SignUp />} />
