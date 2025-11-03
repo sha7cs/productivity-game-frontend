@@ -82,7 +82,7 @@ function ChallengeDetail({ }) {
     async function handleOnComplete() {
         await getSingleChallenge()
         await getUserProfile()
-        await getCompletedGoals() 
+        await getCompletedGoals()
     }
 
     if (errors) {
@@ -112,22 +112,33 @@ function ChallengeDetail({ }) {
                         <div className='goals'>
                             <div className='title'>
                                 <h3>Goals</h3>
-                                <Link to={`/challenges/${challenge.id}/add-goal`}><button className='add-goal'><IoIosAddCircle size={35} color='#4cd964'/></button></Link>
+                                <Link to={`/challenges/${challenge.id}/add-goal`}>
+                                    <button className='add-goal' title='Add Goal'>
+                                        <IoIosAddCircle size={35} className='icon' />
+                                    </button>
+                                </Link>
                             </div>
                             {
                                 challenge.goals.length
                                     ?
                                     <ul>
                                         {
-                                            challenge.goals.map(goal => (
-                                                (<SingleGoal goal={goal} key={goal.id} handleOnComplete={handleOnComplete} completed={goalsCompleted.some(g => g.goal_detail.id === goal.id) ? 'completed' : ''} />)
-                                            ))
+                                            [...challenge.goals]
+                                                .sort((a, b) => {
+                                                    const aCompleted = goalsCompleted.some(g => g.goal_detail.id === a.id);
+                                                    const bCompleted = goalsCompleted.some(g => g.goal_detail.id === b.id);
+
+                                                    if (aCompleted && !bCompleted) return 1; // a after b
+                                                    if (!aCompleted && bCompleted) return -1;  // b after a
+                                                    return 0; // same group // so this sortes them to make the uncompleted ones first in the list so they are displayed at the top
+                                                }).map(goal => (
+                                                    (<SingleGoal goal={goal} key={goal.id} handleOnComplete={handleOnComplete} completed={goalsCompleted.some(g => g.goal_detail.id === goal.id) ? 'completed' : ''} />)
+                                                ))
                                         }
                                     </ul>
                                     :
                                     'No assigned goals yet'
                             }
-                            <Link to={`/challenges/${challenge.id}/add-goal`}><button className='add-goal'>Add Goal</button></Link>
                         </div>
 
                         <div className='challenge-details'>

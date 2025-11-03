@@ -34,7 +34,7 @@ function SingleGoal({goal , handleOnComplete, completed}) {
             <div className="goal-content">
                 <div className='goal-header'>
                     <span className="goal-title">{goal.title}</span>
-                    <Link to={`/challenges/${goal.challenge}/edit-goal/${goal.id}`}><FaEdit size={20} color='#a6a6a6' /></Link>
+                    <Link to={`/challenges/${goal.challenge}/edit-goal/${goal.id}`} disabled={completed === 'completed'}><FaEdit size={20} color='#a6a6a6'/></Link>
                 </div>
                 <p className="goal-description">
                     {goal.description}
@@ -43,6 +43,9 @@ function SingleGoal({goal , handleOnComplete, completed}) {
             <input
                 type="checkbox"
                 className="goal-checkbox"
+                // to make it unclickable and checked by default if it is already completed 
+                checked={completed === 'completed'} 
+                disabled={completed === 'completed'}
                 onChange={() => handleGoalCheck(goal.id)}
             />
             {/* <Link to={`/challenges/${challenge.id}/delete-goal/${goal.id}`}><button style={{ color: 'red' }}>Delete</button></Link> */}

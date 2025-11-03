@@ -21,7 +21,7 @@ export const UserContext = createContext()
 
 function App() {
   const [user, setUser] = useState(getUserFromToken())
-  console.log(user)
+
   async function getUserProfile() {
     try {
       const response = await authRequest({ method: 'get', url: `http://127.0.0.1:8000/api/user-profile/` })
@@ -37,7 +37,7 @@ function App() {
   return (
     <UserContext.Provider value={{ user, setUser, getUserProfile }}>
       <Router>
-        {user ?
+        {user ? // only appear if user logged in 
           <NavBar setUser={setUser} user={user} />
           :
           null
