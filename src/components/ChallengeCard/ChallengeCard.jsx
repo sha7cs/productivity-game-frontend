@@ -19,7 +19,7 @@ function ChallengeCard({ challenge }) {
                         <>
                             {
                                 challenge.members.map(member => {
-                                    return `${member.user}, `
+                                    return `${member.member_info.first_name}, `
                                     // will see how to access the username instead of the id
                                 })
                             }

@@ -54,7 +54,7 @@ $gray-text: #a6a6a6
         background-color: white
         box-shadow: 0 4px 0 #8c87876c
         border-radius: 0.8rem
-        height: 100%
+        height: 20%
 
         h3
             color: black
@@ -70,11 +70,19 @@ $gray-text: #a6a6a6
                 transition: color 0.3s ease-out
 
                 .icon
-                    color: #4cd964
+                    color: $green
                     transition: color 0.3s ease-out
 
                 &:hover .icon
                     color: $yellow
+    .no-goals
+        display: flex
+        flex-direction: column
+        justify-content: center
+        align-items: center
+        height: 100%
+        button
+            background-color: $green
 
     .goal-item
         display: flex

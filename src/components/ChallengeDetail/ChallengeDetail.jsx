@@ -137,7 +137,14 @@ function ChallengeDetail({ }) {
                                         }
                                     </ul>
                                     :
-                                    'No assigned goals yet'
+                                    <div className='no-goals'>
+                                        <h2>No assigned goals yet</h2>
+                                        <Link to={`/challenges/${challenge.id}/add-goal`}>
+                                            <button className='add-goal' title='Add Goal'>
+                                                Click here to make a new goal!
+                                            </button>
+                                        </Link>
+                                    </div>
                             }
                         </div>
 
