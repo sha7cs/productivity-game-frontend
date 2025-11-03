@@ -15,8 +15,12 @@ function ChallengeList() {
     const [challengeList, setChallengeList] = useState(null) // not an empty array so that when its loading it displays 'loading' for user
 
     async function getAllChallenges() {
-        const response = await authRequest({ method: 'get', url: `http://127.0.0.1:8000/api/challenges/` })
-        setChallengeList(response.data)
+        try{
+            const response = await authRequest({ method: 'get', url: `http://127.0.0.1:8000/api/challenges/` })
+            setChallengeList(response.data)
+        } catch(error){
+            console.log(error)
+        }
     }
     useEffect(() => {
         getAllChallenges()

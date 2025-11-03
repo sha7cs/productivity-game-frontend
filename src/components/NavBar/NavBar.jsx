@@ -21,7 +21,7 @@ function NavBar() {
                 <LogoutButton setUser={setUser} className='logout-btn' />
                 <nav className="navbar">
                     <NavLink
-                        to="/"
+                        to="/homepage"
                         className={({ isActive }) => (isActive ? "nav-icon active" : "nav-icon")}
                     >
                         <IoMdHome size={35} />

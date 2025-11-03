@@ -9,13 +9,12 @@ function ChallengeForm() {
     const { challengeId } = useParams()
     const [errors, setErrors] = useState('')
     const navigate = useNavigate()
-
     const [formData, setFormData] = useState({
         name: '',
         description: '',
         start_date: '',
         end_date: '',
-        created_by: user ? user.user_id : '',
+        created_by: user ? user.user.id : '',
     })
 
     async function getChallenge() {

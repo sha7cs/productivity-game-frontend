@@ -16,6 +16,7 @@ import { authRequest } from './lib/auth'
 import { createContext } from 'react'
 import WelcomePage from './components/WelcomePage/WelcomePage'
 import ProtectedRoute from './components/Authentication/ProtectedRoute'
+import HomePage from './components/Homepage/HomePage'
 export const UserContext = createContext()
 
 
@@ -44,6 +45,7 @@ function App() {
         }
         <Routes>
           <Route path='/' element={<WelcomePage />} />
+          <Route path='/homepage' element={<ProtectedRoute> <HomePage/> </ProtectedRoute>} />
           <Route path='/challenges' element={<ProtectedRoute> <ChallengeList user={user} /> </ProtectedRoute>} />
           <Route path='/challenges/:challengeId' element={<ProtectedRoute><ChallengeDetail user={user} /> </ProtectedRoute>} />
           <Route path='/challenges/add' element={<ProtectedRoute><ChallengeForm user={user} /> </ProtectedRoute>} />
