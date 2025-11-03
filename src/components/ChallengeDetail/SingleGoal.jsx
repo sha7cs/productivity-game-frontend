@@ -4,7 +4,7 @@ import { Link } from 'react-router';
 import { authRequest } from '../../lib/auth';
 import { UserContext } from '../../App';
 
-function SingleGoal({goal , handleOnComplete}) {
+function SingleGoal({goal , handleOnComplete, completed}) {
     const [completedGoals, setCompletedGoals] = useState([])
     const { user, getUserProfile } = useContext(UserContext)
 
@@ -21,7 +21,6 @@ function SingleGoal({goal , handleOnComplete}) {
         try {
             const response = await authRequest({ method: 'get', url: `http://127.0.0.1:8000/api/challenges/${goal.challenge}/goals/complete/`})
             response.data.length ? setCompletedGoals(response.data):''
-            console.log(response.data)
         } catch(errors){
             console.log(errors)
         }
@@ -30,9 +29,8 @@ function SingleGoal({goal , handleOnComplete}) {
     useEffect(()=>{
         getCompletedGoals()
     },[])
-
     return (
-        <li key={`goal-${goal.id}`} className='goal-item'>
+        <li key={`goal-${goal.id}`} className={`goal-item ${completed}`}>
             <div className="goal-content">
                 <div className='goal-header'>
                     <span className="goal-title">{goal.title}</span>

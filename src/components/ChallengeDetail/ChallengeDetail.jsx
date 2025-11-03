@@ -11,6 +11,7 @@ import SingleGoal from './SingleGoal'
 import MembersRank from './MembersRank'
 import { UserContext } from '../../App'
 import { useContext } from 'react'
+import { IoIosAddCircle } from "react-icons/io";
 
 function ChallengeDetail({ }) {
     const { user, getUserProfile } = useContext(UserContext)
@@ -31,7 +32,8 @@ function ChallengeDetail({ }) {
         "winner": null
     })
     const [members, setMembers] = useState([])
-    const [member, setMember] = useState(0)
+    const [member, setMember] = useState([])
+    const [goalsCompleted, setGoalsCompleted] = useState([]) // to make the goals user completed at the bottom of the list
 
     async function getSingleChallenge() {
         try {
@@ -39,7 +41,7 @@ function ChallengeDetail({ }) {
             setChallenge(response.data)
 
             getUserProfile() // to update total_points in user info
-            
+
             const sortedMembers = [...response.data.members].sort((a, b) => b.total_points - a.total_points)
             setMembers(sortedMembers)
 
@@ -47,13 +49,27 @@ function ChallengeDetail({ }) {
 
             return response.data
         } catch (error) {
-            setErrors(error.response.data.error)
+            console.log(error)
+            // setErrors(error.response.data.error)
         }
     }
-    useEffect(() => {
-        getSingleChallenge()
-    }, [])
 
+    async function getCompletedGoals() {
+        try {
+            const response = await authRequest({ method: 'get', url: `http://127.0.0.1:8000/api/challenges/${challengeId}/goals/complete/` })
+            setGoalsCompleted(response.data)
+        } catch (error) {
+            console.log(error)
+            // setErrors(error.response.data.error)
+        }
+    }
+
+    useEffect(() => {
+        if (user?.user?.id) { // dont get the challenge unless you make sure you got the user
+            getSingleChallenge()
+        }
+        getCompletedGoals()
+    }, [])
 
     function getDaysRemaining(endDate) {
         const today = new Date();
@@ -63,9 +79,10 @@ function ChallengeDetail({ }) {
         return diffDays > 0 ? diffDays : 0;
     }
 
-    async function handleOnComplete(){
+    async function handleOnComplete() {
         await getSingleChallenge()
         await getUserProfile()
+        await getCompletedGoals() 
     }
 
     if (errors) {
@@ -93,15 +110,18 @@ function ChallengeDetail({ }) {
                     <div className='challenge-detail-card'>
                         {/* i need to make a component for a single goal? */}
                         <div className='goals'>
-                            <h3>Goals</h3>
+                            <div className='title'>
+                                <h3>Goals</h3>
+                                <Link to={`/challenges/${challenge.id}/add-goal`}><button className='add-goal'><IoIosAddCircle size={35} color='#4cd964'/></button></Link>
+                            </div>
                             {
                                 challenge.goals.length
                                     ?
                                     <ul>
                                         {
-                                            challenge.goals.map(goal => {
-                                                return (<SingleGoal goal={goal} key={goal.id} handleOnComplete={handleOnComplete}/>)
-                                            })
+                                            challenge.goals.map(goal => (
+                                                (<SingleGoal goal={goal} key={goal.id} handleOnComplete={handleOnComplete} completed={goalsCompleted.some(g => g.goal_detail.id === goal.id) ? 'completed' : ''} />)
+                                            ))
                                         }
                                     </ul>
                                     :

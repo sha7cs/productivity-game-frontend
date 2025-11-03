@@ -46,7 +46,7 @@ function ChallengeList() {
                             <>
                                 {
                                     challengeList.map(challenge => {
-                                        return <ChallengeCard challenge={challenge} key={challenge.id} user={user}/>
+                                        return <ChallengeCard challenge={challenge} key={challenge.id}/>
                                     })
                                 }
                             </>

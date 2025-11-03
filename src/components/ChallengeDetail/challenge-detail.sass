@@ -35,19 +35,28 @@ $gray-text: #a6a6a6
     flex-direction: column
     width: 80%
     color: $blue
-    h3
-        text-align: center
-        color: black
-        font-size: 3rem
-        margin: 0
+    overflow-y: auto
+    position: relative
 
+    .title
+        position: sticky
+        top: 0
+        z-index: 20
+
+        h3
+            text-align: center
+            color: black
+            font-size: 3rem
+            margin: 0
+            padding: 0
+ 
     .goal-item
         display: flex
         justify-content: space-between
         align-items: center
         gap: 0.8rem
         border-bottom: 2px solid #000
-        padding: 0.8rem 0
+        padding: 0.5rem 0
 
     .goal-checkbox
         appearance: none
@@ -92,10 +101,19 @@ $gray-text: #a6a6a6
         display: flex
         justify-self: flex-end
         justify-content: center
-        background-color: $green
-        border: 0.1rem solid black
-        width: 30%
-       
+        // background-color: $green
+        background: none
+        // border: 0.1rem solid black
+        // width: 10%
+        position: sticky
+        bottom: 0
+        z-index: 20
+        box-shadow: none
+
+    .completed
+        text-decoration: line-through
+        opacity: 0.6
+        background-color: #f4f4f4
 
 
 .challenge-details
