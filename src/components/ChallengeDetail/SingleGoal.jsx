@@ -25,6 +25,7 @@ function SingleGoal({goal , handleOnComplete, completed}) {
             console.log(errors)
         }
     }
+    console.log(completed)
 
     useEffect(()=>{
         getCompletedGoals()

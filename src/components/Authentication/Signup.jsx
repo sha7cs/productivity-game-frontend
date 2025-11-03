@@ -1,6 +1,8 @@
 import axios from 'axios'
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router'
+import './auth.sass'
+import '../WelcomePage/welcome.sass'
 
 function SignUp() {
     const [formData, setFormData] = useState({
@@ -35,9 +37,13 @@ function SignUp() {
         )
     }
     return (
-        <div>
-            <h2>Sign Up</h2>
-            <form onSubmit={handleSubmit}>
+        <div className='auth-page'>
+            <div className='circle1'></div>
+            <div className='circle2'></div>
+            <div className='circle3'></div>
+            <div className='circle4'></div>
+            <h1>Sign Up</h1>
+            <form onSubmit={handleSubmit} className='auth-form'>
                 <div className='email-div'>
                     <label htmlFor="email">Email</label>
                     <input value={formData.email} onChange={handleChange} type="email" name="email" id="email" />
@@ -57,7 +63,7 @@ function SignUp() {
                     <label htmlFor="password">Password</label>
                     <input value={formData.password} onChange={handleChange} type="password" name="password" id="password" />
                 </div>
-                <button type='submit'>sign up</button>
+                <button className='signup-btn' type='submit'>sign up</button>
             </form>
         </div>
     )
