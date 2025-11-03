@@ -1,10 +1,17 @@
 $yellow: #ffcc00
 $blue: #007aff
 
+html.with-navbar // so that in welcome page these margins dont exist
+  max-width: 1280px
+  margin: 0 auto
+  padding: 0 3rem
+  margin: 0 3rem
+
 .navbar
     position: fixed
     top: 50%
     left: 1rem
+    padding: 0.5rem
     transform: translateY(-50%)
     display: flex
     justify-content: space-around
@@ -16,7 +23,6 @@ $blue: #007aff
     border-radius: 0.8rem
     border: 0.1rem solid black
     box-shadow: 0 2px 4px rgba(0,0,0,0.05)
-    padding: 0.5rem
     z-index: 1000
 
 .nav-icon

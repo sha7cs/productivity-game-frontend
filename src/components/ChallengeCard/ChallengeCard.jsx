@@ -7,7 +7,7 @@ import { UserContext } from '../../App';
 
 function ChallengeCard({ challenge }) {
     const { user } = useContext(UserContext)
-    const member = challenge.members.find(m => m.user === user.user.id)
+    const member = challenge.members.find(m => m?.user === user?.user?.id)
 
     return (
         <div className='challenge-card'>

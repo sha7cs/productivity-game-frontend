@@ -1,0 +1,93 @@
+$green: #4cd963
+$yellow: #ffcc00
+$blue: #007aff
+$gray-text: #a6a6a6
+$orange:#FF9500
+
+$green-bg: rgba(76, 217, 99, 0.1)
+$blue-bg: rgba(200, 237, 253,0.15)
+$yellow-bg: rgba(255, 238, 170,0.15)
+$orange-bg: rgba(255, 149, 0, 0.1)
+
+// background circles
+.circle1 // from https://cloudfour.com/thinks/css-circles/
+    background: $orange-bg
+    clip-path: circle(50%)
+    height: 80rem
+    width: 80rem
+    position: absolute
+    top: 32.5rem
+    z-index: -100
+.circle2 
+    background: $green-bg
+    clip-path: circle(50%)
+    height: 80rem
+    width: 80rem
+    position: absolute
+    bottom: 26rem
+    z-index: -100
+.circle3
+    background: $yellow-bg
+    clip-path: circle(50%)
+    height: 80rem
+    width: 80rem
+    position: absolute
+    right: 40rem
+    z-index: -200
+.circle4
+    background: $blue-bg
+    clip-path: circle(50%)
+    height: 80rem
+    width: 80rem
+    position: absolute
+    left: 40rem
+    z-index: -200
+
+
+.welcome-div
+    display: flex
+    justify-content: center
+    align-items: center
+    flex-direction: column
+    padding:0
+    margin: 0
+    height: 100vh
+    width: 100vw
+    position: fixed // bc the circles were making it scrollable
+    
+    h1
+        font-size: 6rem
+        color: #ffcc00
+        background-image: linear-gradient(45deg, #ffcc00 41%, #FF9500 56%) // from https://colorffy.com/text-gradient-generator?colors=ffcc00-FF9500
+        background-clip: text
+        -webkit-background-clip: text
+        -webkit-text-fill-color: transparent
+        display: inline-block  
+    p
+        color: $gray-text
+        width: 40%
+        padding-bottom: 1rem
+        font-size: 1.5rem
+        text-align: center
+    .actions
+        font-size: 1.7rem
+        display: flex
+        gap: 0.5rem
+        align-items: center
+        
+        .signup
+            background-color: $green
+            transition: all 0.1s ease-out
+            &:hover
+                border:3px solid $orange
+                box-shadow: 0 10px 20px rgba(0,0,0,0.1)
+                
+
+        .login
+            background-color: $blue
+            transition: all 0.1s ease
+            &:hover
+                border:3px solid $orange
+                box-shadow: 0 10px 20px rgba(0,0,0,0.1)
+                
+        

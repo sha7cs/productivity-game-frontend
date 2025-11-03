@@ -21,7 +21,7 @@ export const UserContext = createContext()
 
 function App() {
   const [user, setUser] = useState(getUserFromToken())
-
+  console.log(user)
   async function getUserProfile() {
     try {
       const response = await authRequest({ method: 'get', url: `http://127.0.0.1:8000/api/user-profile/` })
@@ -33,16 +33,20 @@ function App() {
   useEffect(() => {
     getUserProfile()
   }, [])
-  
+
   return (
     <UserContext.Provider value={{ user, setUser, getUserProfile }}>
       <Router>
-        <NavBar setUser={setUser} user={user} />
+        {user ?
+          <NavBar setUser={setUser} user={user} />
+          :
+          null
+        }
         <Routes>
-          <Route path='/' element={<WelcomePage/>}/>
+          <Route path='/' element={<WelcomePage />} />
           <Route path='/challenges' element={<ProtectedRoute> <ChallengeList user={user} /> </ProtectedRoute>} />
           <Route path='/challenges/:challengeId' element={<ProtectedRoute><ChallengeDetail user={user} /> </ProtectedRoute>} />
-          <Route path='/challenges/add' element={<ProtectedRoute><ChallengeForm user={user}/> </ProtectedRoute>} />
+          <Route path='/challenges/add' element={<ProtectedRoute><ChallengeForm user={user} /> </ProtectedRoute>} />
           <Route path='/challenges/:challengeId/edit' element={<ProtectedRoute> <ChallengeForm /> </ProtectedRoute>} />
           <Route path='/challenges/:challengeId/add-goal' element={<ProtectedRoute><GoalForm /></ProtectedRoute>} />
           <Route path='/challenges/:challengeId/edit-goal/:goalId' element={<ProtectedRoute><GoalForm /></ProtectedRoute>} />

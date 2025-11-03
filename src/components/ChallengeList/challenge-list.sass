@@ -3,13 +3,16 @@ $blue: #007aff
 $gray-text: #a6a6a6
 
 .challenges-page
-    width: 80vw
+    width: 90vw
+    padding: 3rem 0
 
 .header-challenges
     display: flex
     justify-content: space-between
     align-items: center
-    margin-bottom: 1rem
+    margin: 1rem 0
+    padding: 0 0.3rem 
+
 
 .page-title
     color: black
@@ -18,7 +21,11 @@ $gray-text: #a6a6a6
 
 .header-challenges.sub
     margin: 0 2rem
-    
+    div a button
+        transition: background-color 0.2s ease
+        &:hover
+            background-color: $yellow
+
 .page-sub-title
     color: $gray-text
     font-size: 2.3rem
@@ -29,17 +36,19 @@ $gray-text: #a6a6a6
     text-decoration: none
     transition: color 0.2s ease
 
-.header-challenges a:hover
-    color: $yellow
+.header-challenges 
+    a:hover
+        color: $yellow
 
 .challenges
     display: flex
     flex-wrap: wrap
     justify-content: space-between
-    width: 75vw
+    width: 80vw
     gap: 2.4rem
     background-color: #fff
     padding: 2rem
     border-radius: 0.8rem
     border: 0.1rem solid black
     box-shadow: 4px 4px 0 #000
+    margin-left: 2rem

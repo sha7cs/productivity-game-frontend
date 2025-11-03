@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useEffect, useContext } from 'react'
 import { Link, NavLink } from 'react-router'
 import LogoutButton from '../Authentication/LogoutButton'
 import './navbar.sass'
@@ -9,6 +9,11 @@ import { UserContext } from '../../App';
 
 function NavBar() {
     const { user, setUser } = useContext(UserContext)
+
+    useEffect(() => {
+        document.documentElement.classList.add("with-navbar");
+        return () => document.documentElement.classList.remove("with-navbar");
+    }, []);
     return (<>
         {user
             ?

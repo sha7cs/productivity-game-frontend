@@ -93,7 +93,7 @@ function ChallengeDetail({ }) {
         )
     }
     return (
-        <>
+        <div className='challenge-detail-page'>
             {challenge.name != ""
                 ?
                 <>
@@ -170,7 +170,7 @@ function ChallengeDetail({ }) {
                 :
                 <h3>Loading ...</h3>
             }
-        </>
+        </div>
     )
 }
 
