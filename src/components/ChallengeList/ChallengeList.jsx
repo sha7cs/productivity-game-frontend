@@ -8,6 +8,7 @@ import { IoIosAddCircle } from "react-icons/io";
 import { FaSearch } from "react-icons/fa";
 import ChallengeCard from '../ChallengeCard/ChallengeCard'
 import { UserContext } from '../../App'
+import '../WelcomePage/welcome.sass'
 
 function ChallengeList() {
     const { user } = useContext(UserContext)
@@ -23,6 +24,10 @@ function ChallengeList() {
 
     return (
         <div className='challenges-page'>
+            <div className='circle1'></div>
+            <div className='circle2'></div>
+            <div className='circle3'></div>
+            <div className='circle4'></div>
             <div className='header-challenges'>
                 <h1 className='page-title'>Challenges</h1>
                 <div>
