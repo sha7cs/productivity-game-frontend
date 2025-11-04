@@ -12,11 +12,15 @@ import MembersRank from './MembersRank'
 import { UserContext } from '../../App'
 import { useContext } from 'react'
 import { IoIosAddCircle } from "react-icons/io";
+import GoalForm from '../GoalForm/GoalForm'
+import ChallengeForm from '../ChallengeForm/ChallengeForm'
+import DeleteChallenge from '../ChallengeForm/DeleteChallenge'
 
 function ChallengeDetail({ }) {
     const { user, getUserProfile } = useContext(UserContext)
     const { challengeId } = useParams()
     const [errors, setErrors] = useState('')
+    
     const navigate = useNavigate();
 
     const [challenge, setChallenge] = useState({
@@ -102,8 +106,9 @@ function ChallengeDetail({ }) {
                         <h1>{challenge.name}</h1>
                         <div className='actions'>
                             {/* i might change them and make it ine button for edit and the delete is inside it  */}
-                            <Link to={`/challenges/${challengeId}/edit`}><button><FaEdit size={20} /></button></Link>
-                            <Link to={`/challenges/${challengeId}/confirm-delete`}><button style={{ backgroundColor: 'red', color: 'white' }}><MdDelete size={20} /></button></Link>
+                            <ChallengeForm challengeId={challengeId}><FaEdit size={20} /></ChallengeForm>
+                            <DeleteChallenge challengeId={challengeId} style={{backgroundColor: 'red', color: 'white' }}><MdDelete size={20} /></DeleteChallenge>
+                            {/* <Link to={`/challenges/${challengeId}/confirm-delete`}></Link> */}
                         </div>
                     </div>
 
@@ -112,11 +117,11 @@ function ChallengeDetail({ }) {
                         <div className='goals'>
                             <div className='title'>
                                 <h3>Goals</h3>
-                                <Link to={`/challenges/${challenge.id}/add-goal`}>
-                                    <button className='add-goal' title='Add Goal'>
+                                 <GoalForm challengeId={challengeId} className={'add-goal'}  title='Add Goal'>
+                                    <div className='add-goal-div'>
                                         <IoIosAddCircle size={35} className='icon' />
-                                    </button>
-                                </Link>
+                                    </div>         
+                                </GoalForm>
                             </div>
                             {
                                 challenge.goals.length
@@ -139,11 +144,9 @@ function ChallengeDetail({ }) {
                                     :
                                     <div className='no-goals'>
                                         <h2>No assigned goals yet</h2>
-                                        <Link to={`/challenges/${challenge.id}/add-goal`}>
-                                            <button className='add-goal' title='Add Goal'>
+                                        <GoalForm challengeId={challengeId} className='add-goal'  title='Add Goal'>              
                                                 Click here to make a new goal!
-                                            </button>
-                                        </Link>
+                                        </GoalForm>
                                     </div>
                             }
                         </div>

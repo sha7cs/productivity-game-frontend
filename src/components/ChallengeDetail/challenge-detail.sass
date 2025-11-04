@@ -61,20 +61,20 @@ $gray-text: #a6a6a6
             font-size: 3rem
             position: absolute
             left: 45%
-        a
-            margin-left: auto // to make it to the far right
-            .add-goal
-                background: none
-                border: none
-                cursor: pointer
+        
+        .add-goal
+            margin-left: auto
+            background: none
+            border: none
+            cursor: pointer
+            transition: color 0.3s ease-out
+            box-shadow: none
+            .icon
+                color: $green
                 transition: color 0.3s ease-out
 
-                .icon
-                    color: $green
-                    transition: color 0.3s ease-out
-
-                &:hover .icon
-                    color: $yellow
+            &:hover .icon
+                color: $yellow
     .no-goals
         display: flex
         flex-direction: column
@@ -130,12 +130,14 @@ $gray-text: #a6a6a6
     .goal-header
         display: flex
         align-items: center
+        
 
     .goal-title
         font-weight: 600
         color: $blue
         margin-right: 0.6rem
         font-size: 1.4rem
+    
 
     .goal-description
         color: #a6a6a6
@@ -177,3 +179,13 @@ $gray-text: #a6a6a6
             align-content: center
         li
             font-size: 1.3rem
+
+.edit-goal // i had to force the style because it could not reach it 
+    background: none !important 
+    border: none 
+    padding: 0.3rem !important
+    box-shadow: none
+    > *
+        transition: color 0.2s ease !important
+    &:hover > *
+        color: $blue !important

@@ -19,7 +19,6 @@ import ProtectedRoute from './components/Authentication/ProtectedRoute'
 import HomePage from './components/Homepage/HomePage'
 export const UserContext = createContext()
 
-
 function App() {
   const [user, setUser] = useState(getUserFromToken())
 
@@ -37,35 +36,35 @@ function App() {
 
   return (
     <UserContext.Provider value={{ user, setUser, getUserProfile }}>
-      <Router>
-        {user ? // only appear if user logged in 
-          <NavBar setUser={setUser} user={user} />
-          :
-          null
-        }
-        <div className='background'>
-          <div className='circle1'></div>
-          <div className='circle2'></div>
-          <div className='circle3'></div>
-          <div className='circle4'></div>
-        </div>
-        <Routes>
-          <Route path='/' element={<WelcomePage />} />
-          <Route path='/homepage' element={<ProtectedRoute> <HomePage/> </ProtectedRoute>} />
-          <Route path='/challenges' element={<ProtectedRoute> <ChallengeList user={user} /> </ProtectedRoute>} />
-          <Route path='/challenges/:challengeId' element={<ProtectedRoute><ChallengeDetail user={user} /> </ProtectedRoute>} />
-          <Route path='/challenges/add' element={<ProtectedRoute><ChallengeForm user={user} /> </ProtectedRoute>} />
-          <Route path='/challenges/:challengeId/edit' element={<ProtectedRoute> <ChallengeForm /> </ProtectedRoute>} />
-          <Route path='/challenges/:challengeId/add-goal' element={<ProtectedRoute><GoalForm /></ProtectedRoute>} />
-          <Route path='/challenges/:challengeId/edit-goal/:goalId' element={<ProtectedRoute><GoalForm /></ProtectedRoute>} />
-          <Route path='/challenges/:challengeId/delete-goal/:goalId' element={<ProtectedRoute><DeleteGoal /></ProtectedRoute>} />
-          <Route path='/challenges/:challengeId/confirm-delete' element={<ProtectedRoute><DeleteChallenge /></ProtectedRoute>} />
-          <Route path='/challenges/join' element={<ProtectedRoute><JoinChallenge /></ProtectedRoute>} />
-          {/* Auth */}
-          <Route path='/login' element={<Login setUser={setUser} />} />
-          <Route path='/signup' element={<SignUp />} />
-        </Routes>
-      </Router>
+        <Router>
+          {user ? // only appear if user logged in 
+            <NavBar setUser={setUser} user={user} />
+            :
+            null
+          }
+          <div className='background'>
+            <div className='circle1'></div>
+            <div className='circle2'></div>
+            <div className='circle3'></div>
+            <div className='circle4'></div>
+          </div>
+          <Routes>
+            <Route path='/' element={<WelcomePage />} />
+            <Route path='/homepage' element={<ProtectedRoute> <HomePage /> </ProtectedRoute>} />
+            <Route path='/challenges' element={<ProtectedRoute> <ChallengeList user={user} /> </ProtectedRoute>} />
+            <Route path='/challenges/:challengeId' element={<ProtectedRoute><ChallengeDetail user={user} /> </ProtectedRoute>} />
+            <Route path='/challenges/add' element={<ProtectedRoute><ChallengeForm user={user} /> </ProtectedRoute>} />
+            <Route path='/challenges/:challengeId/edit' element={<ProtectedRoute> <ChallengeForm /> </ProtectedRoute>} />
+            <Route path='/challenges/:challengeId/add-goal' element={<ProtectedRoute><GoalForm /></ProtectedRoute>} />
+            <Route path='/challenges/:challengeId/edit-goal/:goalId' element={<ProtectedRoute><GoalForm /></ProtectedRoute>} />
+            <Route path='/challenges/:challengeId/delete-goal/:goalId' element={<ProtectedRoute><DeleteGoal /></ProtectedRoute>} />
+            <Route path='/challenges/:challengeId/confirm-delete' element={<ProtectedRoute><DeleteChallenge /></ProtectedRoute>} />
+            <Route path='/challenges/join' element={<ProtectedRoute><JoinChallenge /></ProtectedRoute>} />
+            {/* Auth */}
+            <Route path='/login' element={<Login setUser={setUser} />} />
+            <Route path='/signup' element={<SignUp />} />
+          </Routes>
+        </Router>
     </UserContext.Provider>
   )
 }

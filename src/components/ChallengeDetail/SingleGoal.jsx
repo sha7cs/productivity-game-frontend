@@ -3,6 +3,7 @@ import { FaEdit } from "react-icons/fa";
 import { Link } from 'react-router';
 import { authRequest } from '../../lib/auth';
 import { UserContext } from '../../App';
+import GoalForm from '../GoalForm/GoalForm';
 
 function SingleGoal({goal , handleOnComplete, completed}) {
     const [completedGoals, setCompletedGoals] = useState([])
@@ -25,7 +26,6 @@ function SingleGoal({goal , handleOnComplete, completed}) {
             console.log(errors)
         }
     }
-    console.log(completed)
 
     useEffect(()=>{
         getCompletedGoals()
@@ -35,7 +35,8 @@ function SingleGoal({goal , handleOnComplete, completed}) {
             <div className="goal-content">
                 <div className='goal-header'>
                     <span className="goal-title">{goal.title}</span>
-                    <Link to={`/challenges/${goal.challenge}/edit-goal/${goal.id}`} disabled={completed === 'completed'}><FaEdit size={20} color='#a6a6a6'/></Link>
+                    {/* <Link to={`/challenges/${goal.challenge}/edit-goal/${goal.id}`} disabled={completed === 'completed'}><FaEdit size={20} color='#a6a6a6'/></Link> */}
+                    <GoalForm challengeId={goal.challenge} goalId={goal.id} disabled={completed === 'completed'} className={'edit-goal'}><FaEdit size={20} color='#a6a6a6'/></GoalForm>
                 </div>
                 <p className="goal-description">
                     {goal.description}

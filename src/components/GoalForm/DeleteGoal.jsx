@@ -3,16 +3,17 @@ import { useNavigate, useParams } from 'react-router'
 import axios from 'axios'
 import { useEffect } from 'react'
 import { authRequest } from '../../lib/auth'
+import CustomModal from '../CustomModal/CustomModal'
 
-function DeleteGoal() {
-    const { challengeId, goalId } = useParams()
+function DeleteGoal({challengeId,goalId}) {
     const [goal, setGoal] = useState({})
     const navigate = useNavigate()
     const [errors, setErrors] = useState('')
+    const [Open, setOpen] = useState(false)
 
 
     async function getGoal() {
-        const response = await authRequest({method:'get',url:`http://127.0.0.1:8000/api/challenges/${challengeId}/goals/${goalId}/`})
+        const response = await authRequest({ method: 'get', url: `http://127.0.0.1:8000/api/challenges/${challengeId}/goals/${goalId}/` })
         setGoal(response.data)
     }
 
@@ -23,7 +24,7 @@ function DeleteGoal() {
     async function deleteGoal(event) {
         try {
             event.preventDefault()
-            const response = await authRequest({method:'delete',url:`http://127.0.0.1:8000/api/challenges/${challengeId}/goals/${goalId}/`})
+            const response = await authRequest({ method: 'delete', url: `http://127.0.0.1:8000/api/challenges/${challengeId}/goals/${goalId}/` })
             navigate(`/challenges/${challengeId}`) // when returning for frontend i want to send a message to next page how?
         } catch (error) {
             setErrors(error.response.data.error)
@@ -39,8 +40,11 @@ function DeleteGoal() {
     }
     return (
         <div>
-            <h1> Are you sure you want to delete "{goal.title}" goal?</h1>
-            <button onClick={deleteGoal}>Yes</button>
+            <button style={{backgroundColor:'red'}} onClick={() => setOpen(true)}>Delete Goal</button>
+            <CustomModal isOpen={Open} onClose={() => setOpen(false)}>
+                <h1> Are you sure you want to delete "{goal.title}" goal?</h1>
+                <button onClick={deleteGoal}>Yes</button>
+            </CustomModal>
         </div>
     )
 }

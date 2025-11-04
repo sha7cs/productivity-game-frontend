@@ -2,12 +2,13 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router'
 import { authRequest } from '../../lib/auth'
+import CustomModal from '../CustomModal/CustomModal'
 
-function DeleteChallenge() {
-    const { challengeId } = useParams()
+function DeleteChallenge({children , challengeId, style}) {
     const [challenge, setChallenge] = useState({})
     const navigate = useNavigate()
     const [errors, setErrors] = useState('')
+    const [open, setOpen] = useState(false)
 
 
     async function getChallenge() {
@@ -38,8 +39,11 @@ function DeleteChallenge() {
     }
     return (
         <div>
-            <h1> Are you sure you want to delete "{challenge.name}" challenge?</h1>
+            <button style={style} onClick={() => setOpen(true)}>{children}</button>
+        <CustomModal isOpen={open} onClose={() => setOpen(false)}>
+            <h2> Are you sure you want to delete "{challenge.name}" challenge?</h2>
             <button onClick={deleteChallenge}>Yes</button>
+        </CustomModal>
         </div>
     )
 }

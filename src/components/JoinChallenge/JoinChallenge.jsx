@@ -2,10 +2,13 @@ import axios from 'axios'
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router'
 import { authRequest } from '../../lib/auth'
+import CustomModal from '../CustomModal/CustomModal'
 
-function JoinChallenge() {
+function JoinChallenge({className}) {
     const [joinCode, setJoinCode] = useState('')
     const [errors, setErrors] = useState('')
+    const [Open, setOpen] = useState(false)
+
     const navigate = useNavigate()
     
     function handleChange(event) {
@@ -29,8 +32,11 @@ function JoinChallenge() {
         return <h2>{errors}</h2>
     }
     return (
-        <div>
-            <h2>Join a challenge</h2>
+        <>
+        <button className={className} onClick={()=>setOpen(true)}>Join a Challenge</button>
+        
+        <CustomModal isOpen={Open} onClose={()=>setOpen(false)}>
+            <h2>Join a Challenge</h2>
             <form onSubmit={handleSubmit}>
                 <div className='join-code-div'>
                     <label htmlFor="join-code">Enter the join code of desired challenge</label>
@@ -38,7 +44,8 @@ function JoinChallenge() {
                 </div>
                 <button type='submit'>Join</button>
             </form>
-        </div>
+        </CustomModal>
+        </>
     )
 }
 
