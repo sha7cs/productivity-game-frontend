@@ -4,10 +4,6 @@ import './welcome.sass'
 function WelcomePage() {
   return (
     <div className='welcome-div'>
-        <div className='circle1'></div>
-        <div className='circle2'></div>
-        <div className='circle3'></div>
-        <div className='circle4'></div>
         <h1>Welcome!</h1>
         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit ipsum expedita accusamus eveniet,orem excepturi!</p>
         <div className='actions'>

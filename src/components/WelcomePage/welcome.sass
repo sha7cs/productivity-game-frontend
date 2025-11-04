@@ -10,38 +10,47 @@ $yellow-bg: rgba(255, 238, 170,0.15)
 $orange-bg: rgba(255, 149, 0, 0.1)
 
 // background circles
-.circle1 // from https://cloudfour.com/thinks/css-circles/
-    background: $orange-bg
-    clip-path: circle(50%)
-    height: 80rem
-    width: 80rem
-    position: absolute
-    top: 32.5rem
-    z-index: -100
-.circle2 
-    background: $green-bg
-    clip-path: circle(50%)
-    height: 80rem
-    width: 80rem
-    position: absolute
-    bottom: 26rem
-    z-index: -100
-.circle3
-    background: $yellow-bg
-    clip-path: circle(50%)
-    height: 80rem
-    width: 80rem
-    position: absolute
-    right: 40rem
-    z-index: -200
-.circle4
-    background: $blue-bg
-    clip-path: circle(50%)
-    height: 80rem
-    width: 80rem
-    position: absolute
-    left: 40rem
-    z-index: -200
+.background
+    // so that it doesnt become scrollable because of the circles
+    position: fixed
+    top: 0
+    left: 0
+    width: 100%
+    height: 100%
+    overflow: hidden 
+    z-index: -1
+    .circle1 // from https://cloudfour.com/thinks/css-circles/
+        background: $orange-bg
+        clip-path: circle(50%)
+        height: 80rem
+        width: 80rem
+        position: absolute
+        top: 32.5rem
+        z-index: -100
+    .circle2 
+        background: $green-bg
+        clip-path: circle(50%)
+        height: 80rem
+        width: 80rem
+        position: absolute
+        bottom: 26rem
+        z-index: -100
+    .circle3
+        background: $yellow-bg
+        clip-path: circle(50%)
+        height: 80rem
+        width: 80rem
+        position: absolute
+        right: 40rem
+        z-index: -200
+    .circle4
+        background: $blue-bg
+        clip-path: circle(50%)
+        height: 80rem
+        width: 80rem
+        position: absolute
+        left: 40rem
+        z-index: -200
 
 
 .welcome-div

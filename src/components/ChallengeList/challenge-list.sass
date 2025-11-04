@@ -1,7 +1,8 @@
+$green: #4cd963
 $yellow: #ffcc00
 $blue: #007aff
 $gray-text: #a6a6a6
-
+$orange:#ff9500
 .challenges-page
     width: 90vw
     padding: 3rem 0
@@ -10,17 +11,20 @@ $gray-text: #a6a6a6
     display: flex
     justify-content: space-between
     align-items: center
-    margin: 0.5rem 0
-    padding: 0 0.3rem 
+    padding: 0 0.5rem 
+    margin-top: 0.5rem
 
 
 .page-title
-    color: black
+    color: $green
     justify-content: start
     align-items: start
+    margin-left: 0.2rem
+    font-size: 3rem
 
 .header-challenges.sub
     margin: 0 2rem
+    max-height: 5rem
     div a button
         font-weight: 700
         background-color: $blue
@@ -31,7 +35,7 @@ $gray-text: #a6a6a6
 
 .page-sub-title
     color: $gray-text
-    font-size: 2.3rem
+    font-size: 2rem
 
 .header-challenges div a
     margin-left: 1rem
@@ -46,12 +50,13 @@ $gray-text: #a6a6a6
 .challenges
     display: flex
     flex-wrap: wrap
-    justify-content: space-between
+    justify-content: flex-start
     width: 80vw
-    gap: 2.4rem
+    gap: 2.3rem
     background-color: #fff
-    padding: 2rem
+    padding: 1.5rem
     border-radius: 0.8rem
     border: 0.1rem solid black
     box-shadow: 4px 4px 0 #000
     margin-left: 2rem
+    margin-bottom: 1rem

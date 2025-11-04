@@ -13,11 +13,16 @@ import '../WelcomePage/welcome.sass'
 function ChallengeList() {
     const { user } = useContext(UserContext)
     const [challengeList, setChallengeList] = useState(null) // not an empty array so that when its loading it displays 'loading' for user
+    const [inActiveChallenges , setInactiveChallenges] = useState(null)
 
     async function getAllChallenges() {
         try{
             const response = await authRequest({ method: 'get', url: `http://127.0.0.1:8000/api/challenges/` })
-            setChallengeList(response.data)
+            const active = response.data.filter(ch => ch.is_active === true)
+            setChallengeList(active)
+            
+            const inActive = response.data.filter(ch => ch.is_active === false)
+            setInactiveChallenges(inActive)
         } catch(error){
             console.log(error)
         }
@@ -40,6 +45,8 @@ function ChallengeList() {
                 </div>
             </div>
             <hr />
+
+            {/* on going Challenges  */}
             <div className='header-challenges sub'>
                 <h2 className='page-sub-title'>Ongoing</h2> {/* i will make it so i have multiple sections one on going one old one created by you ? */}
                 <div>
@@ -56,6 +63,30 @@ function ChallengeList() {
                                 {
                                     challengeList.map(challenge => {
                                         return <ChallengeCard challenge={challenge} key={challenge.id}/>
+                                    })
+                                }
+                            </>
+                            :
+                            <h2>you have no challenges</h2>
+                        :
+                        <h2>Loading...</h2>
+                }
+            </div>
+
+            {/* Done challenges  */}
+            <div className='header-challenges sub'>
+                <h2 className='page-sub-title'>Done</h2>
+            </div>
+            <div className='challenges'>
+                {
+                    inActiveChallenges
+                        ?
+                        inActiveChallenges.length
+                            ?
+                            <>
+                                {
+                                    inActiveChallenges.map(challenge => {
+                                        return <ChallengeCard challenge={challenge} key={challenge.id} className='inactive'/>
                                     })
                                 }
                             </>

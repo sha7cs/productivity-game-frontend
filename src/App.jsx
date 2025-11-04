@@ -43,6 +43,12 @@ function App() {
           :
           null
         }
+        <div className='background'>
+          <div className='circle1'></div>
+          <div className='circle2'></div>
+          <div className='circle3'></div>
+          <div className='circle4'></div>
+        </div>
         <Routes>
           <Route path='/' element={<WelcomePage />} />
           <Route path='/homepage' element={<ProtectedRoute> <HomePage/> </ProtectedRoute>} />
