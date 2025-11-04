@@ -43,20 +43,20 @@ function SignUp() {
             <div className='circle3'></div>
             <div className='circle4'></div>
             <h1>Sign Up</h1>
-            <form onSubmit={handleSubmit} className='auth-form'>
+            <form onSubmit={handleSubmit} className='auth-form shadow-pop-br'>
                 <div className='email-div'>
                     <label htmlFor="email">Email</label>
-                    <input value={formData.email} onChange={handleChange} type="email" name="email" id="email" />
+                    <input value={formData.email} onChange={handleChange} type="email" name="email" />
                 </div>
 
                 <div className='username-div'>
                     <label htmlFor="username">Username</label>
-                    <input value={formData.username} onChange={handleChange} type="text" name="username" id="username" />
+                    <input value={formData.username} onChange={handleChange} type="text" name="username"/>
                 </div>
 
                 <div className='first-name-div'>
                     <label htmlFor="first_name">first name</label>
-                    <input value={formData.first_name} onChange={handleChange} type="text" name="first_name" id="first_name" />
+                    <input value={formData.first_name} onChange={handleChange} type="text" name="first_name"/>
                 </div>
 
                 <div className='password-div'>

@@ -4,10 +4,11 @@ import axios from 'axios'
 import { authRequest } from '../../lib/auth'
 import { UserContext } from '../../App'
 import CustomModal from '../CustomModal/CustomModal'
+import DeleteChallenge from './DeleteChallenge'
+import { MdDelete } from "react-icons/md";
 
-function ChallengeForm({children, challengeId , className}) {
+function ChallengeForm({children, challengeId , className, getSingleChallenge}) {
     const { user } = useContext(UserContext)
-    // const { challengeId } = useParams()
     const [errors, setErrors] = useState('')
     const [Open, setOpen] = useState(false)
 
@@ -19,6 +20,7 @@ function ChallengeForm({children, challengeId , className}) {
         start_date: '',
         end_date: '',
         created_by: user.user ? user.user.id : '',
+        winner:null
     })
 
     async function getChallenge() {
@@ -41,11 +43,12 @@ function ChallengeForm({children, challengeId , className}) {
             let response = {}
             if (challengeId) {
                 response = await authRequest({ method: 'put', url: `http://127.0.0.1:8000/api/challenges/${challengeId}/`, data: formData })
+                await getSingleChallenge()
             } else {
                 response = await authRequest({ method: 'post', url: 'http://127.0.0.1:8000/api/challenges/', data: formData })
             }
             if (response.status === 201 || response.status === 200) {
-                navigate(`/challenges/${response.data.id}`)
+                setOpen(false)
             }
         } catch (error) {
             console.log(error)
@@ -62,8 +65,11 @@ function ChallengeForm({children, challengeId , className}) {
         <>
             <button className={className} onClick={() => setOpen(true)}>{children}</button>
             <CustomModal isOpen={Open} onClose={() => setOpen(false)}>
-                <h2>{challengeId ? `Edit "${formData.name}"` : "Add a Challenge"}</h2>
-                <form onSubmit={handleSubmit}>
+                <div className='header'>
+                    {challengeId ? `Edit "${formData.name}"` : "Add a Challenge"}
+                    <hr />
+                </div>
+                <form onSubmit={handleSubmit} className='content-modal'>
 
                     <div className='challenge-name-form'>
                         <label htmlFor="name">Name</label>
@@ -84,6 +90,11 @@ function ChallengeForm({children, challengeId , className}) {
                         <label htmlFor="end_date">End Date</label>
                         <input value={formData.end_date} onChange={handleChange} type="date" name="end_date" id="end_date" />
                     </div>
+                    { challengeId ?
+                        <DeleteChallenge challengeId={challengeId} style={{backgroundColor: 'red', color: 'white' }}><MdDelete size={20} /></DeleteChallenge>
+                        :
+                        ''
+                    }
                     <button type='submit'>{challengeId ? `Edit "${formData.name}"` : "Add a Challenge"}</button>
                 </form>
             </CustomModal>

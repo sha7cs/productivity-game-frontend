@@ -36,8 +36,11 @@ function JoinChallenge({className}) {
         <button className={className} onClick={()=>setOpen(true)}>Join a Challenge</button>
         
         <CustomModal isOpen={Open} onClose={()=>setOpen(false)}>
-            <h2>Join a Challenge</h2>
-            <form onSubmit={handleSubmit}>
+            <div className='header'>
+                 <span>Join a Challenge </span>
+                 <hr />   
+            </div>
+            <form onSubmit={handleSubmit} className='content-modal'>
                 <div className='join-code-div'>
                     <label htmlFor="join-code">Enter the join code of desired challenge</label>
                     <input value={joinCode} onChange={handleChange} type="number" name="join-code" id="join-code" />

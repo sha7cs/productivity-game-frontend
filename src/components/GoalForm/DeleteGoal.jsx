@@ -42,8 +42,14 @@ function DeleteGoal({challengeId,goalId}) {
         <div>
             <button style={{backgroundColor:'red'}} onClick={() => setOpen(true)}>Delete Goal</button>
             <CustomModal isOpen={Open} onClose={() => setOpen(false)}>
-                <h1> Are you sure you want to delete "{goal.title}" goal?</h1>
-                <button onClick={deleteGoal}>Yes</button>
+                <div className='header'> 
+                    Confirm Delete
+                    <hr />
+                </div>
+                <div className='content-modal'>
+                    Are you sure you want to delete "{goal.title}" goal?
+                  <button onClick={deleteGoal}>Yes</button>
+                </div>
             </CustomModal>
         </div>
     )

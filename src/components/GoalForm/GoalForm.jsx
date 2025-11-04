@@ -4,8 +4,9 @@ import { useNavigate, useParams } from 'react-router'
 import { authRequest } from '../../lib/auth'
 import CustomModal from '../CustomModal/CustomModal'
 import DeleteGoal from './DeleteGoal'
+import { MdDelete } from "react-icons/md";
 
-function GoalForm({challengeId, goalId, className, children}) {
+function GoalForm({ challengeId, goalId, className, children }) {
     const [errors, setErrors] = useState('')
     const [Open, setOpen] = useState(false)
 
@@ -42,7 +43,7 @@ function GoalForm({challengeId, goalId, className, children}) {
                 response = await authRequest({ method: 'post', url: `http://127.0.0.1:8000/api/challenges/${challengeId}/goals/`, data: formData })
             }
             if (response.status === 201 || response.status === 200) {
-                navigate(`/challenges/${challengeId}`)
+                setOpen(false)
             }
         } catch (error) {
             setErrors(error.response.data.error)
@@ -59,10 +60,13 @@ function GoalForm({challengeId, goalId, className, children}) {
     return (
         <>
             <button className={className} onClick={() => setOpen(true)}>{children}</button>
-            
+
             <CustomModal isOpen={Open} onClose={() => setOpen(false)}>
-                <h1>{goalId ? "Edit Goal" : "Add Goal"}</h1>
-                <form onSubmit={handleSubmit}>
+                <div className='header'>
+                    {goalId ? "Edit Goal" : "Add Goal"}
+                    <hr />
+                </div>
+                <form onSubmit={handleSubmit} className='content-modal'>
                     <div className='goal-title-div'>
                         <label htmlFor="title">Goal title</label>
                         <input value={formData.title} onChange={handleChange} type="text" name="title" id="title" />
@@ -77,9 +81,14 @@ function GoalForm({challengeId, goalId, className, children}) {
                         <label htmlFor="description">description</label>
                         <textarea value={formData.description} onChange={handleChange} type="text" name="description" id="description" />
                     </div>
-
+                    {goalId ?
+                        <DeleteGoal>
+                            <MdDelete/>
+                        </DeleteGoal>
+                        :
+                        ''
+                    }
                     <button type='submit'>{goalId ? "Edit Goal" : "Add Goal"}</button>
-                    <DeleteGoal/>
                 </form>
             </CustomModal>
         </>

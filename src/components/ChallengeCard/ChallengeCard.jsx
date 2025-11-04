@@ -41,7 +41,7 @@ function ChallengeCard({ challenge, className }) {
                                     // if no value is found return 0 it wont happen in actual logic but because some of my data 
                                     // is not modified to most recent structure it gave me an error so i did this for better handleing
                                 }
-                                <GrMoney style={{ padding: '0.3rem' }} />
+                                <GrMoney style={{ padding: '0.3rem' }} size={25}/>
                             </div>
                         }
 
@@ -50,7 +50,7 @@ function ChallengeCard({ challenge, className }) {
                         {/* i will make the logic to get the user rank later */}
                     </h3>
                     <p id='challenge-description'>{challenge.description}</p>
-                    <p>{challenge.created_by === member.user? 'created by you': ''}</p>
+                    <p>{challenge?.created_by === member.user? 'created by you': ''}</p>
                 </div>
             </Link>
         </div>

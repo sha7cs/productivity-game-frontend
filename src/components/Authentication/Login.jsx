@@ -45,15 +45,15 @@ function Login() {
             <div className='circle4'></div>
 
             <h1>Welcome Back!</h1>
-            <form onSubmit={handleSubmit} className='auth-form'>
-                <div className='username-div'>
+            <form onSubmit={handleSubmit} className='auth-form shadow-pop-br'>
+                <div className='username-div login'>
                     <label htmlFor="username">Username</label>
-                    <input value={formData.username} onChange={handleChange} type="text" name='username' id='username' />
+                    <input value={formData.username} onChange={handleChange} type="text" name='username' placeholder='please enter your username here'/>
                 </div>
 
-                <div className='password-div'>
+                <div className='password-div login'>
                     <label htmlFor="password">password</label>
-                    <input value={formData.password} onChange={handleChange} type="password" name='password' id='password' />
+                    <input value={formData.password} onChange={handleChange} type="password" name='password' placeholder='please enter your password here'/>
                 </div>
 
                 <button className='login-btn'type='submit'>Login</button>

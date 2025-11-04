@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import { useNavigate } from 'react-router'
 import { clearTokens } from '../../lib/auth'
 import CustomModal from '../CustomModal/CustomModal'
+import { IoMdLogOut } from "react-icons/io";
+import { PiPersonSimpleRunDuotone } from "react-icons/pi";
 
 function LogoutButton({setUser, className}) {
     const navigate = useNavigate()
@@ -13,12 +15,18 @@ function LogoutButton({setUser, className}) {
     }
   return (
     <>
-      <button className='logout-btn' onClick={() => setOpen(true)}>Logout</button>  
-
+      <button id='logout-btn' onClick={() => setOpen(true)} title='Logout'><IoMdLogOut className='icon' size={23}/></button>  
+      <div id='logout-modal'>
       <CustomModal isOpen={open} onClose={() => setOpen(false)}>
-        <h2>you sure you want to logout?</h2>
-        <button onClick={handleLogout} >Logout</button>
+        <div className='header'>
+          <span>Logout</span>
+          <hr />
+        </div>
+        
+        <div className='content'>you sure you want to logout?</div>
+        <button onClick={handleLogout} ><PiPersonSimpleRunDuotone size={30}/></button>
       </CustomModal>
+      </div>
     </>
   )
 }

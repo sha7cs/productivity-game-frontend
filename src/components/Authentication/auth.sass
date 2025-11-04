@@ -45,14 +45,38 @@ $orange:#ff9500
                 border: 2px solid $green
                 background-color: white
                 box-shadow:2px 3px #b4b4b454
+                transition: all 0.2s ease-out
+                &::placeholder
+                    font-size: 1rem
+                    color: #b4b4b447
                 &:focus
                     border:2px solid $orange
                     box-shadow: 5px 5px 5px 5px #ff950042
-                
-        
+                    
+        .username-div.login, .password-div.login
+            input
+                border: 2px solid $blue
+
         button
-            margin: 0.2rem 0.5rem
-            font-size: 1.3rem
-// .logout
-//     display: flex
-//     justify-self: flex-end
+            margin: 0.5rem 0
+            padding: 0.5rem
+            font-size: 1.8rem
+            font-weight: 700
+            width: 50%
+            max-height: 10%
+
+#logout-modal
+    position: relative
+    display: flex
+
+    .content
+        font-size: 2rem
+        display: flex
+        justify-content: center
+        padding: 2rem
+    button
+        display: flex
+        justify-content: center
+        justify-self: flex-end
+        align-self: flex-end
+        width: 20%

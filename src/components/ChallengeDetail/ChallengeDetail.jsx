@@ -106,7 +106,7 @@ function ChallengeDetail({ }) {
                         <h1>{challenge.name}</h1>
                         <div className='actions'>
                             {/* i might change them and make it ine button for edit and the delete is inside it  */}
-                            <ChallengeForm challengeId={challengeId}><FaEdit size={20} /></ChallengeForm>
+                            <ChallengeForm challengeId={challengeId} getSingleChallenge={getSingleChallenge}><FaEdit size={20} /></ChallengeForm>
                             <DeleteChallenge challengeId={challengeId} style={{backgroundColor: 'red', color: 'white' }}><MdDelete size={20} /></DeleteChallenge>
                             {/* <Link to={`/challenges/${challengeId}/confirm-delete`}></Link> */}
                         </div>
