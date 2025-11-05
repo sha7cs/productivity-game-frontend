@@ -3,19 +3,9 @@ import './homepage.sass'
 import { UserContext } from '../../App'
 import { authRequest } from '../../lib/auth'
 
-function HomePage() {
+function HomePage({challenges}) {
     const { user, setUser } = useContext(UserContext)
-    const [challengesList, setChallengeList] = useState([])
     const [goalsCompleted, setGoalsCompleted] = useState([])
-
-    async function getAllChallenges() {
-        try {
-            const response = await authRequest({ method: 'get', url: `http://127.0.0.1:8000/api/challenges/` })
-            setChallengeList(response.data)
-        } catch (error) {
-            console.log(error)
-        }
-    }
 
     async function getCompletedGoals() {
         try {
@@ -23,12 +13,10 @@ function HomePage() {
             setGoalsCompleted(response.data)
         } catch (error) {
             console.log(error)
-            // setErrors(error.response.data.error)
         }
     }
     useEffect(() => {
         if (user?.user?.id) {
-            getAllChallenges()
             getCompletedGoals()
         }
     }, [])
@@ -70,21 +58,25 @@ function HomePage() {
                             <h2>All Challenges</h2>
                             <hr />
                             {
-                                challengesList.length
-                                    ?
-                                    <ul>
-                                        {
-                                            challengesList.map((challenge, index) => {
-                                                return (
-                                                    <li key={challenge.id}>
-                                                        <span>{index + 1}</span>
-                                                        {challenge.name}
-                                                    </li>
-                                                )
-                                            })
-                                        }
-                                    </ul>
-                                    :
+                                challenges
+                                ?
+                                    challenges.length
+                                        ?
+                                        <ul>
+                                            {
+                                                challenges.map((challenge, index) => {
+                                                    return (
+                                                        <li key={challenge.id}>
+                                                            <span>{index + 1}</span>
+                                                            {challenge.name}
+                                                        </li>
+                                                    )
+                                                })
+                                            }
+                                        </ul>
+                                        :
+                                        <h3>No challenges yet!</h3>
+                                :
                                     <div id='loader-div'>
                                         <span className="loader"></span>
                                     </div>
@@ -94,16 +86,19 @@ function HomePage() {
                             <h2>Your Last 5 Completed Goals</h2>
                             <hr />
                             {
-                                goalsCompleted.length
-                                    ?
-                                    <ul>
-                                        {
-                                            goalsCompleted.map(goal => {
-                                                return (<li key={goal.id}>{goal.goal_detail.title}</li>)
-                                            })
-                                        }
-                                    </ul>
-                                    :
+                                goalsCompleted?
+                                    goalsCompleted.length
+                                        ?
+                                        <ul>
+                                            {
+                                                goalsCompleted.map(goal => {
+                                                    return (<li key={goal.id}>{goal.goal_detail.title}</li>)
+                                                })
+                                            }
+                                        </ul>
+                                        :
+                                        <h3>No completed goals!</h3>
+                                :
                                     <div id='loader-div'>
                                         <span className="loader"></span>
                                     </div>

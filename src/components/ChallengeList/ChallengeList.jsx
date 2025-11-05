@@ -12,26 +12,39 @@ import '../WelcomePage/welcome.sass'
 import JoinChallenge from '../JoinChallenge/JoinChallenge'
 import ChallengeForm from '../ChallengeForm/ChallengeForm'
 
-function ChallengeList() {
+function ChallengeList({ challenges }) {
     const { user } = useContext(UserContext)
     const [challengeList, setChallengeList] = useState(null) // not an empty array so that when its loading it displays 'loading' for user
     const [inActiveChallenges, setInactiveChallenges] = useState(null)
 
-    async function getAllChallenges() {
-        try {
-            const response = await authRequest({ method: 'get', url: `http://127.0.0.1:8000/api/challenges/` })
-            const active = response.data.filter(ch => ch.is_active === true)
-            setChallengeList(active)
+    // async function getAllChallenges() {
+    //     try {
+    //         const response = await authRequest({ method: 'get', url: `http://127.0.0.1:8000/api/challenges/` })
+    //         const active = response.data.filter(ch => ch.is_active === true)
+    //         setChallengeList(active)
 
-            const inActive = response.data.filter(ch => ch.is_active === false)
-            setInactiveChallenges(inActive)
+    //         const inActive = response.data.filter(ch => ch.is_active === false)
+    //         setInactiveChallenges(inActive)
+    //     } catch (error) {
+    //         console.log(error)
+    //     }
+    // }
+    function getAllChallenges() {
+        try {
+            const active = challenges.filter(ch => ch.is_active === true);
+            const inActive = challenges.filter(ch => ch.is_active === false);
+
+            setChallengeList(active);
+            setInactiveChallenges(inActive);
         } catch (error) {
-            console.log(error)
+            console.log(error);
         }
     }
     useEffect(() => {
-        getAllChallenges()
-    }, [])
+        if (challenges?.length) {
+            getAllChallenges()
+        }
+    }, [challenges])
 
     return (
         <div className='challenges-page'>
@@ -42,7 +55,7 @@ function ChallengeList() {
             <div className='header-challenges'>
                 <h1 className='page-title'>Challenges</h1>
                 <div>
-                    <ChallengeForm title="Add a Challenge" className={'add-challenge'} getAllChallenges={getAllChallenges}><IoIosAddCircle size={30} /></ChallengeForm>
+                    <ChallengeForm title="Add a Challenge" className={'add-challenge'}><IoIosAddCircle size={30} /></ChallengeForm>
                     <Link to={'/challenges/join'} title="Search for Challenge"><FaSearch size={30} /></Link>
                 </div>
             </div>
@@ -50,7 +63,7 @@ function ChallengeList() {
 
             {/* on going Challenges  */}
             <div className='header-challenges sub'>
-                <h2 className='page-sub-title'>Ongoing</h2> 
+                <h2 className='page-sub-title'>Ongoing</h2>
                 <div>
                     <JoinChallenge className='join-btn' />
                 </div>

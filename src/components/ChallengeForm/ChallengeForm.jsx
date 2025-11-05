@@ -9,7 +9,7 @@ import { MdDelete } from "react-icons/md";
 import toast from 'react-hot-toast';
 
 function ChallengeForm({ children, challengeId, className, getSingleChallenge, getAllChallenges }) {
-    const { user } = useContext(UserContext)
+    const { user , fetchChallenges} = useContext(UserContext)
     const [Open, setOpen] = useState(false)
 
     const [formData, setFormData] = useState({
@@ -43,7 +43,7 @@ function ChallengeForm({ children, challengeId, className, getSingleChallenge, g
                 await getSingleChallenge()
             } else {
                 response = await authRequest({ method: 'post', url: 'http://127.0.0.1:8000/api/challenges/', data: formData })
-                getAllChallenges()
+                fetchChallenges()
             }
             if (response.status === 201 || response.status === 200) {
                 setOpen(false)

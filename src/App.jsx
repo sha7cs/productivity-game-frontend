@@ -19,11 +19,13 @@ import ProtectedRoute from './components/Authentication/ProtectedRoute'
 import HomePage from './components/Homepage/HomePage'
 import PublicRoute from './components/Authentication/PublicRoute'
 import toast, { Toaster } from 'react-hot-toast';
+import { getAllChallenges } from './lib/GameService'
 
 export const UserContext = createContext()
 
 function App() {
   const [user, setUser] = useState(getUserFromToken())
+  const [challenges, setChallenges] = useState([])
 
   async function getUserProfile() {
     try {
@@ -34,31 +36,46 @@ function App() {
       toast.error(message);
     }
   }
+  async function fetchChallenges() {
+    try {
+      const response = await getAllChallenges()
+      setChallenges(response)
+      console.log(response)
+
+    } catch (errors) {
+      console.log(errors)
+      toast.error(message);
+    }
+  }
+
   useEffect(() => {
     getUserProfile()
+    if(user){
+      fetchChallenges()
+    }
   }, [])
 
   return (
-    <UserContext.Provider value={{ user, setUser, getUserProfile }}>
+    <UserContext.Provider value={{ user, setUser, getUserProfile ,fetchChallenges}}>
       <Router>
-        {user ? // only appear if user logged in 
+        {user ? // navbar only appears if user logged in 
           <NavBar setUser={setUser} user={user} />
           :
           null
         }
         <div className='background'>
-          <div className='circle1 bg-pan-left '></div>
-          <div className='circle2 bg-pan-left '></div>
-          <div className='circle3 bg-pan-left '></div>
-          <div className='circle4 bg-pan-left '></div>
+          <div className='circle1'></div>
+          <div className='circle2'></div>
+          <div className='circle3'></div>
+          <div className='circle4'></div>
         </div>
 
-        <Toaster position="top-center" reverseOrder={false} /> 
+        <Toaster position="top-center" reverseOrder={false} />
 
         <Routes>
           <Route path='/' element={<PublicRoute><WelcomePage /></PublicRoute>} />
-          <Route path='/homepage' element={<ProtectedRoute> <HomePage /> </ProtectedRoute>} />
-          <Route path='/challenges' element={<ProtectedRoute> <ChallengeList user={user} /> </ProtectedRoute>} />
+          <Route path='/homepage' element={<ProtectedRoute> <HomePage challenges={challenges}/> </ProtectedRoute>} />
+          <Route path='/challenges' element={<ProtectedRoute> <ChallengeList challenges={challenges} /> </ProtectedRoute>} />
           <Route path='/challenges/:challengeId' element={<ProtectedRoute><ChallengeDetail user={user} /> </ProtectedRoute>} />
           <Route path='/challenges/add' element={<ProtectedRoute><ChallengeForm user={user} /> </ProtectedRoute>} />
           <Route path='/challenges/:challengeId/edit' element={<ProtectedRoute> <ChallengeForm /> </ProtectedRoute>} />
@@ -68,7 +85,7 @@ function App() {
           <Route path='/challenges/:challengeId/confirm-delete' element={<ProtectedRoute><DeleteChallenge /></ProtectedRoute>} />
           <Route path='/challenges/join' element={<ProtectedRoute><JoinChallenge /></ProtectedRoute>} />
           {/* Auth */}
-          <Route path='/login' element={<PublicRoute><Login/></PublicRoute>} />
+          <Route path='/login' element={<PublicRoute><Login /></PublicRoute>} />
           <Route path='/signup' element={<PublicRoute><SignUp /></PublicRoute>} />
         </Routes>
       </Router>
