@@ -17,27 +17,15 @@ function ChallengeList({ challenges }) {
     const [challengeList, setChallengeList] = useState(null) // not an empty array so that when its loading it displays 'loading' for user
     const [inActiveChallenges, setInactiveChallenges] = useState(null)
 
-    // async function getAllChallenges() {
-    //     try {
-    //         const response = await authRequest({ method: 'get', url: `http://127.0.0.1:8000/api/challenges/` })
-    //         const active = response.data.filter(ch => ch.is_active === true)
-    //         setChallengeList(active)
-
-    //         const inActive = response.data.filter(ch => ch.is_active === false)
-    //         setInactiveChallenges(inActive)
-    //     } catch (error) {
-    //         console.log(error)
-    //     }
-    // }
     function getAllChallenges() {
         try {
-            const active = challenges.filter(ch => ch.is_active === true);
-            const inActive = challenges.filter(ch => ch.is_active === false);
+            const active = challenges.filter(ch => ch.is_active === true)
+            const inActive = challenges.filter(ch => ch.is_active === false)
 
-            setChallengeList(active);
-            setInactiveChallenges(inActive);
+            setChallengeList(active)
+            setInactiveChallenges(inActive)
         } catch (error) {
-            console.log(error);
+            console.log(error)
         }
     }
     useEffect(() => {

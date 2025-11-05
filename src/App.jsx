@@ -40,8 +40,6 @@ function App() {
     try {
       const response = await getAllChallenges()
       setChallenges(response)
-      console.log(response)
-
     } catch (errors) {
       console.log(errors)
       toast.error(message);

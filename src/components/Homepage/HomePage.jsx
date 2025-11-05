@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { use, useContext, useEffect, useState } from 'react'
 import './homepage.sass'
 import { UserContext } from '../../App'
 import { authRequest } from '../../lib/auth'
@@ -6,6 +6,7 @@ import { authRequest } from '../../lib/auth'
 function HomePage({challenges}) {
     const { user, setUser } = useContext(UserContext)
     const [goalsCompleted, setGoalsCompleted] = useState([])
+    const [challengesList , setChallengeList] = useState(null)
 
     async function getCompletedGoals() {
         try {
@@ -18,6 +19,9 @@ function HomePage({challenges}) {
     useEffect(() => {
         if (user?.user?.id) {
             getCompletedGoals()
+        }
+        if(challenges?.length){
+            setChallengeList(challenges)
         }
     }, [])
     return (
@@ -58,13 +62,13 @@ function HomePage({challenges}) {
                             <h2>All Challenges</h2>
                             <hr />
                             {
-                                challenges
+                                challengesList
                                 ?
-                                    challenges.length
+                                    challengesList?.length
                                         ?
                                         <ul>
                                             {
-                                                challenges.map((challenge, index) => {
+                                                challengesList.map((challenge, index) => {
                                                     return (
                                                         <li key={challenge.id}>
                                                             <span>{index + 1}</span>
@@ -77,9 +81,9 @@ function HomePage({challenges}) {
                                         :
                                         <h3>No challenges yet!</h3>
                                 :
-                                    <div id='loader-div'>
-                                        <span className="loader"></span>
-                                    </div>
+                                <div id='loader-div'>
+                                    <span className="loader"></span>
+                                </div>
                             }
                         </div>
                         <div className='bottom-card card'>

@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { FaEdit } from "react-icons/fa";
-import { Link } from 'react-router';
 import { authRequest } from '../../lib/auth';
 import { UserContext } from '../../App';
 import GoalForm from '../GoalForm/GoalForm';
@@ -8,7 +7,6 @@ import GoalForm from '../GoalForm/GoalForm';
 function SingleGoal({goal , handleOnComplete, completed}) {
     const [completedGoals, setCompletedGoals] = useState([])
     const { user, getUserProfile } = useContext(UserContext)
-
     async function handleGoalCheck(goalId) {
         try {
             const response = await authRequest({ method: 'post', url: `http://127.0.0.1:8000/api/challenges/${goal.challenge}/goals/${goal.id}/complete/` })

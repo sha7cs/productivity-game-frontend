@@ -3,7 +3,6 @@ import { authRequest } from "./auth";
 export async function getAllChallenges() {
     try {
         const response = await authRequest({ method: 'get', url: `http://127.0.0.1:8000/api/challenges/` })
-        console.log(response.data)
         return(response.data)
     } catch (error) {
         console.log(error)
