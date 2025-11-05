@@ -20,6 +20,7 @@ import HomePage from './components/Homepage/HomePage'
 import PublicRoute from './components/Authentication/PublicRoute'
 import toast, { Toaster } from 'react-hot-toast';
 import { getAllChallenges } from './lib/GameService'
+import FutureWork from './components/FutureWork/FutureWork'
 
 export const UserContext = createContext()
 
@@ -82,6 +83,7 @@ function App() {
           <Route path='/challenges/:challengeId/delete-goal/:goalId' element={<ProtectedRoute><DeleteGoal /></ProtectedRoute>} />
           <Route path='/challenges/:challengeId/confirm-delete' element={<ProtectedRoute><DeleteChallenge /></ProtectedRoute>} />
           <Route path='/challenges/join' element={<ProtectedRoute><JoinChallenge /></ProtectedRoute>} />
+          <Route path='/future' element={<FutureWork />} />
           {/* Auth */}
           <Route path='/login' element={<PublicRoute><Login /></PublicRoute>} />
           <Route path='/signup' element={<PublicRoute><SignUp /></PublicRoute>} />

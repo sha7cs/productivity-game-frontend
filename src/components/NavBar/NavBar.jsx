@@ -35,7 +35,7 @@ function NavBar() {
                     </NavLink>
 
                     <NavLink
-                        to="/profile"
+                        to='/future'
                         className={({ isActive }) => (isActive ? "nav-icon active" : "nav-icon")}
                     >
                         <IoPerson size={35} />

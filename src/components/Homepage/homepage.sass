@@ -10,7 +10,6 @@ $orange:#ff9500
         display: flex
         justify-content: center
         gap: 2rem
-        margin: 1rem
 
         .card
             display: flex
@@ -23,17 +22,36 @@ $orange:#ff9500
             box-shadow: 4px 4px 0 #000
             padding: 0.5rem
             width: 15rem
-            height: 12rem
+            height: 10rem
             font-size: 1.2rem
 
         .first
+            height: 100%
             color: $yellow
+            .icon
+                color: #be9801
         .second
+            height: 100%
             color: $green
+            .icon
+                color: $yellow
         .third
+            height: 100%
             color: $orange
+            .icon
+                color: #7d1818
         .fourth
+            height: 100%
             color: $blue
+            .icon
+                color: #2e91fafc
+
+        .number 
+            margin: 0
+            margin-top: 2rem
+            font-size: 3rem
+        .icon
+            margin: 0 1rem
             
     .bottom-cards
         display: flex
@@ -49,6 +67,48 @@ $orange:#ff9500
             padding: 0.5rem
             width: 33rem
             height: 30rem
-        .bottom-card
+        .all-challenges , .all-completed-goals
+            overflow-y: scroll
+            a
+                 color: black !important
             h2
                 color: black
+                font-size: 1.8rem
+                margin: 1rem 2rem
+            ul 
+                display: flex
+                flex-direction: column
+                justify-content: center
+                align-items: center
+                list-style: none
+                font-size: 1.5rem
+                overflow-y: scroll
+
+                .challenge-item , .completed-goal-item
+                    display: flex
+                    flex-direction: row
+                    gap: 0.5rem
+                    width: 100%
+                    padding: 0.5rem 0  
+                    margin-bottom: 0.8rem
+                    margin-right: 1.5rem
+                    color: black
+                    border-bottom: 0.3px solid black
+                    p
+                        color: $gray-text
+                        font-size: 1rem
+                        margin: 0 0.2rem 0 1rem 
+
+                    span.index
+                        text-align: center
+                        width: 2.3rem
+                        height: 2.3rem
+                        background-color: $yellow
+                        border-radius: 1rem
+                        color: black
+
+                    span.date
+                        font-size: 1.3rem
+                        margin-left: auto
+                        color: $yellow
+

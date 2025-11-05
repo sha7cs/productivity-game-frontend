@@ -121,7 +121,7 @@ function ChallengeDetail() {
                             </div>
 
                             {/* i want to make a page that will list all the goals you and the members completed based on date  */}
-                            <a href="">History</a>
+                            <Link to='/future'>History</Link>
 
                             {/* just for now i will make it hidden but i will create a modal for ot later */}
                             <div className='challenge-info' hidden>

@@ -43,15 +43,15 @@ function ChallengeList({ challenges }) {
             <div className='header-challenges'>
                 <h1 className='page-title'>Challenges</h1>
                 <div>
-                    <ChallengeForm title="Add a Challenge" className={'add-challenge'}><IoIosAddCircle size={30} /></ChallengeForm>
-                    <Link to={'/challenges/join'} title="Search for Challenge"><FaSearch size={30} /></Link>
+                    <ChallengeForm title="Add a Challenge" className={'add-challenge'}><IoIosAddCircle size={34} /></ChallengeForm>
+                    {/* <Link to={'/challenges/join'} title="Search for Challenge"><FaSearch size={30} /></Link> // will do it in the future*/}
                 </div>
             </div>
             <hr />
 
             {/* on going Challenges  */}
             <div className='header-challenges sub'>
-                <h2 className='page-sub-title'>Ongoing</h2>
+                <h2 className='page-sub-title'>On going</h2>
                 <div>
                     <JoinChallenge className='join-btn' />
                 </div>
