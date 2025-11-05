@@ -75,13 +75,6 @@ function GoalForm({ challengeId, goalId, className, children }) {
                         <label htmlFor="description">description</label>
                         <textarea value={formData.description} onChange={handleChange} type="text" name="description" id="description" />
                     </div>
-                    {goalId ?
-                        <DeleteGoal>
-                            <MdDelete/>
-                        </DeleteGoal>
-                        :
-                        ''
-                    }
                     <button type='submit'>{goalId ? "Edit Goal" : "Add Goal"}</button>
                 </form>
             </CustomModal>

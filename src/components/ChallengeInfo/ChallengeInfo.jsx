@@ -1,14 +1,19 @@
-import React, { useState } from 'react'
+import React, { useState , useEffect} from 'react'
 import CustomModal from '../CustomModal/CustomModal'
 import './challenge-info.sass'
-function ChallengeInfo({ challenge, members }) {
-    const [Open, setOpen] = useState(true)
+function ChallengeInfo({ challenge, members ,show ,onClose}) {
+    const [open, setOpen] = useState(show)
+
+    useEffect(() => {
+        setOpen(show)
+    }, [show])
 
     return (
         <div>
-            <button onClick={() => setOpen(true)}>Close</button>
-
-            <CustomModal isOpen={Open} onClose={() => setOpen(false)}>
+            <CustomModal isOpen={open} onClose={() => {
+                setOpen(false) 
+                onClose()
+                }}>
                 <div className='header'>
                     About the challenge {challenge.name}
                     <hr />

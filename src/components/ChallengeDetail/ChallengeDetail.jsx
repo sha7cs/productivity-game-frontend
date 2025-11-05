@@ -18,8 +18,6 @@ import ChallengeInfo from '../ChallengeInfo/ChallengeInfo'
 function ChallengeDetail({ }) {
     const { user, getUserProfile } = useContext(UserContext)
     const { challengeId } = useParams()
-    const [errors, setErrors] = useState('')
-
     const navigate = useNavigate();
 
     const [challenge, setChallenge] = useState({
@@ -36,8 +34,8 @@ function ChallengeDetail({ }) {
     })
     const [members, setMembers] = useState([])
     const [member, setMember] = useState([])
-    const [goalsCompleted, setGoalsCompleted] = useState([]) // to make the goals user completed at the bottom of the list
     const [active, setActive] = useState(true)
+    const [showModal, setShowModal] = useState(true)
 
     async function getSingleChallenge() {
         try {
@@ -62,6 +60,15 @@ function ChallengeDetail({ }) {
         }
     }, [])
 
+    function openInfoModal(){
+        console.log('ye')
+        setShowModal(true)
+    }
+    function closeModal(){
+        console.log('ye')
+        setShowModal(false)
+    }
+
     function getDaysRemaining(endDate) {
         const today = new Date();
         const end = new Date(endDate);
@@ -70,19 +77,20 @@ function ChallengeDetail({ }) {
         return diffDays > 0 ? diffDays : 0;
     }
     return (
-        <div className={`challenge-detail-page ${active}`}>
+        <div className={`challenge-detail-page ${!active? 'inactive': null}`}>
             {challenge.name != ""
                 ?
                 <>
-                    <ChallengeInfo challenge={challenge} members={members}></ChallengeInfo>
+                    {showModal && (<ChallengeInfo show={showModal} onClose={closeModal} challenge={challenge} members={members}></ChallengeInfo>) }
+                    
                     <div className='challenge-detail-header'>
                         <button onClick={() => navigate(-1)} className='back-btn'><IoArrowBack size={30} /></button>
-                        <h1>{challenge.name}</h1>
+                        
+                        {/* when user clicks title show info  */}
+                        <h1 onClick={openInfoModal} id='challenge-name-clickable'>{challenge.name}</h1> 
                         <div className='actions'>
-                            {/* i might change them and make it ine button for edit and the delete is inside it  */}
                             <ChallengeForm challengeId={challengeId} getSingleChallenge={getSingleChallenge}><FaEdit size={20} /></ChallengeForm>
                             <DeleteChallenge challengeId={challengeId} style={{ backgroundColor: 'red', color: 'white' }}><MdDelete size={20} /></DeleteChallenge>
-                            {/* <Link to={`/challenges/${challengeId}/confirm-delete`}></Link> */}
                         </div>
                     </div>
 

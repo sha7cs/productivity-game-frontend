@@ -86,11 +86,6 @@ function ChallengeForm({ children, challengeId, className, getSingleChallenge, g
                         <label htmlFor="end_date">End Date</label>
                         <input value={formData.end_date} onChange={handleChange} type="date" name="end_date" id="end_date" />
                     </div>
-                    {challengeId ?
-                        <DeleteChallenge challengeId={challengeId} style={{ backgroundColor: 'red', color: 'white' }}><MdDelete size={20} /></DeleteChallenge>
-                        :
-                        ''
-                    }
                     <button type='submit'>{challengeId ? `Edit "${formData.name}"` : "Add a Challenge"}</button>
                 </form>
             </CustomModal>

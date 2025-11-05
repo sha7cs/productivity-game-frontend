@@ -22,6 +22,11 @@ $gray-text: #a6a6a6
     height: 35rem
     gap: 1rem
 
+#challenge-name-clickable
+    cursor: pointer
+    &:hover
+        opacity: 0.7
+
 .challenge-detail-header
     display: flex
     justify-content: space-between
@@ -49,14 +54,14 @@ $gray-text: #a6a6a6
         position: sticky
         top: 0
         padding: 0.5rem
-        z-index: 20
+        z-index: 15
         display: flex
         align-items: center
         justify-content: center
         background-color: white
         box-shadow: 0 4px 0 #8c87876c
         border-radius: 0.8rem
-        height: 20%
+        height: 25%
 
         h3
             color: black
