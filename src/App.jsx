@@ -17,6 +17,9 @@ import { createContext } from 'react'
 import WelcomePage from './components/WelcomePage/WelcomePage'
 import ProtectedRoute from './components/Authentication/ProtectedRoute'
 import HomePage from './components/Homepage/HomePage'
+import PublicRoute from './components/Authentication/PublicRoute'
+
+
 export const UserContext = createContext()
 
 function App() {
@@ -49,7 +52,7 @@ function App() {
             <div className='circle4'></div>
           </div>
           <Routes>
-            <Route path='/' element={<WelcomePage />} />
+            <Route path='/' element={<PublicRoute><WelcomePage /></PublicRoute>} />
             <Route path='/homepage' element={<ProtectedRoute> <HomePage /> </ProtectedRoute>} />
             <Route path='/challenges' element={<ProtectedRoute> <ChallengeList user={user} /> </ProtectedRoute>} />
             <Route path='/challenges/:challengeId' element={<ProtectedRoute><ChallengeDetail user={user} /> </ProtectedRoute>} />
@@ -61,8 +64,8 @@ function App() {
             <Route path='/challenges/:challengeId/confirm-delete' element={<ProtectedRoute><DeleteChallenge /></ProtectedRoute>} />
             <Route path='/challenges/join' element={<ProtectedRoute><JoinChallenge /></ProtectedRoute>} />
             {/* Auth */}
-            <Route path='/login' element={<Login setUser={setUser} />} />
-            <Route path='/signup' element={<SignUp />} />
+            <Route path='/login' element={<PublicRoute><Login setUser={setUser} /></PublicRoute>} />
+            <Route path='/signup' element={<PublicRoute><SignUp /></PublicRoute>} />
           </Routes>
         </Router>
     </UserContext.Provider>

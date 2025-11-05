@@ -1,9 +1,10 @@
-import React from "react"
+import React, { useContext } from "react"
 import { getUserFromToken } from "../../lib/auth"
 import { Navigate } from "react-router"
+import { UserContext } from "../../App"
 
 export default function ProtectedRoute({ children }) {
-  const user = getUserFromToken()
+  const { user, getUserProfile } = useContext(UserContext)
   if (!user) return <Navigate to="/" replace />
   return children
 }
