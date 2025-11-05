@@ -17,8 +17,6 @@ function GoalForm({ challengeId, goalId, className, children }) {
         challenge: challengeId
     })
 
-    const navigate = useNavigate()
-
     async function getGoal() {
         const response = await authRequest({ method: 'get', url: `http://127.0.0.1:8000/api/challenges/${challengeId}/goals/${goalId}/` })
         setFormData(response.data)

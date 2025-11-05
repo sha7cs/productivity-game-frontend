@@ -12,6 +12,8 @@ import { useContext } from 'react'
 import ChallengeForm from '../ChallengeForm/ChallengeForm'
 import DeleteChallenge from '../ChallengeForm/DeleteChallenge'
 import GoalList from '../GoalList/GoalList'
+import { IoMdMore } from "react-icons/io";
+import ChallengeInfo from '../ChallengeInfo/ChallengeInfo'
 
 function ChallengeDetail({ }) {
     const { user, getUserProfile } = useContext(UserContext)
@@ -72,6 +74,7 @@ function ChallengeDetail({ }) {
             {challenge.name != ""
                 ?
                 <>
+                    <ChallengeInfo challenge={challenge} members={members}></ChallengeInfo>
                     <div className='challenge-detail-header'>
                         <button onClick={() => navigate(-1)} className='back-btn'><IoArrowBack size={30} /></button>
                         <h1>{challenge.name}</h1>
