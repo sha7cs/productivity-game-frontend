@@ -73,7 +73,7 @@ function ChallengeList() {
                             :
                             <h2>you have no challenges</h2>
                         :
-                        <h2>Loading...</h2>
+                        <span class="loader"></span>
                 }
             </div>
 
@@ -97,7 +97,8 @@ function ChallengeList() {
                             :
                             <h2>you have no challenges</h2>
                         :
-                        <h2>Loading...</h2>
+                        <span class="loader"></span>
+
                 }
             </div>
         </div>

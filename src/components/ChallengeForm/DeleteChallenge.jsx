@@ -12,8 +12,12 @@ function DeleteChallenge({ children, challengeId, style }) {
 
 
     async function getChallenge() {
+        try{
         const response = await authRequest({ method: 'get', url: `http://127.0.0.1:8000/api/challenges/${challengeId}/` })
         setChallenge(response.data)
+        } catch(error){
+            console.log(error)
+        }
     }
 
     useEffect(() => {

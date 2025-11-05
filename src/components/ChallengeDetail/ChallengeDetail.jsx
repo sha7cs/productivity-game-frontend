@@ -38,12 +38,13 @@ function ChallengeDetail({ }) {
     const [members, setMembers] = useState([])
     const [member, setMember] = useState([])
     const [goalsCompleted, setGoalsCompleted] = useState([]) // to make the goals user completed at the bottom of the list
+    const [active,setActive] =useState(true)
 
     async function getSingleChallenge() {
         try {
             const response = await authRequest({ method: 'get', url: `http://127.0.0.1:8000/api/challenges/${challengeId}/` })
             setChallenge(response.data)
-
+            setActive(response.data.is_active)
             getUserProfile() // to update total_points in user info
 
             const sortedMembers = [...response.data.members].sort((a, b) => b.total_points - a.total_points)
@@ -69,7 +70,7 @@ function ChallengeDetail({ }) {
     }
 
     useEffect(() => {
-        if (user?.user?.id) { // dont get the challenge unless you make sure you got the user
+        if (user?.user?.id) { // dont get the challenge unless you made sure you got the user
             getSingleChallenge()
         }
         getCompletedGoals()
@@ -97,7 +98,7 @@ function ChallengeDetail({ }) {
         )
     }
     return (
-        <div className='challenge-detail-page'>
+        <div className={`challenge-detail-page ${active}`}>
             {challenge.name != ""
                 ?
                 <>
@@ -181,7 +182,7 @@ function ChallengeDetail({ }) {
                                 <h3>{challenge.description}</h3>
                                 <h3>Join Code : {challenge.join_code}</h3>
                                 <h3>created by you</h3>
-                                <h3>{challenge.winner == null ? "no winner yet" : challenge.winner}</h3>
+                                <h3>{challenge.winner === null ? "no winner yet" : challenge.winner.first_name}</h3>
                                 <h3>{challenge.is_active ? 'is active' : 'this challenge has ended'}</h3>
                             </div>
                             {/* i need to make a component for a single goal? */}
@@ -189,7 +190,7 @@ function ChallengeDetail({ }) {
                     </div>
                 </>
                 :
-                <h3>Loading ...</h3>
+                 <span class="loader"></span>
             }
         </div>
     )

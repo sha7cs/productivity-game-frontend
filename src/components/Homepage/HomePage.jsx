@@ -1,60 +1,108 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import './homepage.sass'
 import { UserContext } from '../../App'
+import { authRequest } from '../../lib/auth'
 
 function HomePage() {
     const { user, setUser } = useContext(UserContext)
+    const [challengesList, setChallengeList] = useState([])  
+    const [goalsCompleted, setGoalsCompleted] = useState([])
 
-// total_challenges_joined
-// total_goals_completed
-// total_points
-// 572
-// user
-// {id: 6, username: 'jo', email: 'jojo@gmail.com', first_name: 'jaaa'}
+    async function getAllChallenges() {
+        try {
+            const response = await authRequest({ method: 'get', url: `http://127.0.0.1:8000/api/challenges/` })
+            setChallengeList(response.data)
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
+    async function getCompletedGoals() {
+        try {
+            const response = await authRequest({ method: 'get', url: `http://127.0.0.1:8000/api/challenges/goals/completed/` })
+            setGoalsCompleted(response.data)
+        } catch (error) {
+            console.log(error)
+            // setErrors(error.response.data.error)
+        }
+    }
+    useEffect(() => {
+        if (user?.user?.id) { 
+            getAllChallenges()
+            getCompletedGoals()
+        }
+    }, [])
     return (
         <div className='homepage'>
             <div className='circle1'></div>
             <div className='circle2'></div>
             <div className='circle3'></div>
             <div className='circle4'></div>
+            {user.user ?
+                <>
+                    <h1>Welcome {user?.user?.first_name}!</h1>
+                    <div className='cards'>
 
-            <h1>Welcome {user.user.first_name}!</h1>
-            <div className='cards'>
+                        <div className='card first'>
+                            <h2>{user.total_points}</h2>
+                            <h2>Total Points</h2>
+                        </div>
 
-                <div className='card first'>
-                    <h2>{user.total_points}</h2>
-                    <h2>Total Points</h2>
-                </div>
+                        <div className='card second'>
+                            <h2>{user.wins_count}</h2>
+                            <h2>Wins</h2>
+                        </div>
 
-                <div className='card second'>
-                    <h2></h2>
-                    <h2>Wins</h2>
-                </div>
+                        <div className='card third'>
+                            <h2>{user.total_goals_completed}</h2>
+                            <h2>Goals Completed</h2>
+                        </div>
 
-                <div className='card third'>
-                    <h2></h2>
-                    <h2>Goals Completed</h2>
-                </div>
+                        <div className='card fourth'>
+                            <h2>{user.total_challenges_joined}</h2>
+                            <h2>Challenges</h2>
+                        </div>
 
-                <div className='card fourth'>
-                    <h2></h2>
-                    <h2>Challenges</h2>
-                </div>
+                    </div>
 
-            </div>
-
-            <div className='bottom-cards'>
-                <div className='bottom-card card'>
-                    <h2>All Challenges</h2>
-                    {/* make a map here that goes through all the challenges */}
-                </div>
-                <div className='bottom-card card'>
-                    <h2>Your Last Completed Goals</h2>
-                    {/* make a code here that goes through completed goals based on date of completion */}
-                </div>
-            </div>
-
+                    <div className='bottom-cards'>
+                        <div className='bottom-card card'>
+                            <h2>All Challenges</h2>
+                            {
+                                challengesList.length
+                                ?
+                                <ul>
+                                {
+                                    challengesList.map(challenge => {
+                                        return (<li key={challenge.id}>{challenge.name}</li>)
+                                    })
+                                }
+                                </ul>
+                                :
+                                <span className="loader"></span>
+                            }
+                        </div>
+                        <div className='bottom-card card'>
+                            <h2>Your Last 5 Completed Goals</h2>
+                            {
+                                goalsCompleted.length
+                                ?
+                                <ul>
+                                {
+                                    goalsCompleted.map(goal => {
+                                        return (<li key={goal.id}>{goal.goal_detail.title}</li>)
+                                    })
+                                }
+                                </ul>
+                                :
+                                <span className="loader"></span>
+                            }
+                        </div>
+                    </div>
+                </>
+                :
+                <span className="loader"></span>
+            }
         </div>
     )
 }
