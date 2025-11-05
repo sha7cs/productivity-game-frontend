@@ -5,9 +5,9 @@ import { authRequest } from '../../lib/auth'
 import CustomModal from '../CustomModal/CustomModal'
 import DeleteGoal from './DeleteGoal'
 import { MdDelete } from "react-icons/md";
+import toast from 'react-hot-toast';
 
 function GoalForm({ challengeId, goalId, className, children }) {
-    const [errors, setErrors] = useState('')
     const [Open, setOpen] = useState(false)
 
     const [formData, setFormData] = useState({
@@ -44,19 +44,15 @@ function GoalForm({ challengeId, goalId, className, children }) {
             }
             if (response.status === 201 || response.status === 200) {
                 setOpen(false)
+                response.status === 200 ? toast.success('Goal has been updated!') : toast.success('Goal has been created!')
             }
         } catch (error) {
-            setErrors(error.response.data.error)
+            console.log(error)
+            const firstError = Object.keys(error.response?.data)[0]+": " + Object.values(error.response?.data)[0]
+            toast.error(firstError || 'failed. Please try again.')
         }
     }
 
-    if (errors) {
-        return (
-            <div>
-                <h3>{errors}</h3>
-            </div>
-        )
-    }
     return (
         <>
             <button className={className} onClick={() => setOpen(true)}>{children}</button>

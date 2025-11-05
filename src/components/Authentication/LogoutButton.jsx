@@ -4,6 +4,7 @@ import { clearTokens } from '../../lib/auth'
 import CustomModal from '../CustomModal/CustomModal'
 import { IoMdLogOut } from "react-icons/io";
 import { PiPersonSimpleRunDuotone } from "react-icons/pi";
+import toast from 'react-hot-toast';
 
 function LogoutButton({setUser, className}) {
     const navigate = useNavigate()
@@ -12,6 +13,7 @@ function LogoutButton({setUser, className}) {
         clearTokens()
         setUser(null)
         navigate('/login')
+        toast.success('Logout successfull!')
     }
   return (
     <>

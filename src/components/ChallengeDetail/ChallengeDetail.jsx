@@ -20,7 +20,7 @@ function ChallengeDetail({ }) {
     const { user, getUserProfile } = useContext(UserContext)
     const { challengeId } = useParams()
     const [errors, setErrors] = useState('')
-    
+
     const navigate = useNavigate();
 
     const [challenge, setChallenge] = useState({
@@ -38,7 +38,7 @@ function ChallengeDetail({ }) {
     const [members, setMembers] = useState([])
     const [member, setMember] = useState([])
     const [goalsCompleted, setGoalsCompleted] = useState([]) // to make the goals user completed at the bottom of the list
-    const [active,setActive] =useState(true)
+    const [active, setActive] = useState(true)
 
     async function getSingleChallenge() {
         try {
@@ -108,7 +108,7 @@ function ChallengeDetail({ }) {
                         <div className='actions'>
                             {/* i might change them and make it ine button for edit and the delete is inside it  */}
                             <ChallengeForm challengeId={challengeId} getSingleChallenge={getSingleChallenge}><FaEdit size={20} /></ChallengeForm>
-                            <DeleteChallenge challengeId={challengeId} style={{backgroundColor: 'red', color: 'white' }}><MdDelete size={20} /></DeleteChallenge>
+                            <DeleteChallenge challengeId={challengeId} style={{ backgroundColor: 'red', color: 'white' }}><MdDelete size={20} /></DeleteChallenge>
                             {/* <Link to={`/challenges/${challengeId}/confirm-delete`}></Link> */}
                         </div>
                     </div>
@@ -118,10 +118,10 @@ function ChallengeDetail({ }) {
                         <div className='goals'>
                             <div className='title'>
                                 <h3>Goals</h3>
-                                 <GoalForm challengeId={challengeId} className={'add-goal'}  title='Add Goal'>
+                                <GoalForm challengeId={challengeId} className={'add-goal'} title='Add Goal'>
                                     <div className='add-goal-div'>
                                         <IoIosAddCircle size={35} className='icon' />
-                                    </div>         
+                                    </div>
                                 </GoalForm>
                             </div>
                             {
@@ -145,8 +145,8 @@ function ChallengeDetail({ }) {
                                     :
                                     <div className='no-goals'>
                                         <h2>No assigned goals yet</h2>
-                                        <GoalForm challengeId={challengeId} className='add-goal'  title='Add Goal'>              
-                                                Click here to make a new goal!
+                                        <GoalForm challengeId={challengeId} className='add-goal' title='Add Goal'>
+                                            Click here to make a new goal!
                                         </GoalForm>
                                     </div>
                             }
@@ -190,7 +190,9 @@ function ChallengeDetail({ }) {
                     </div>
                 </>
                 :
-                 <span class="loader"></span>
+                <div id='loader-div'>
+                    <span className="loader"></span>
+                </div>
             }
         </div>
     )

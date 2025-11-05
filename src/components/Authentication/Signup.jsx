@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import { useNavigate } from 'react-router'
 import './auth.sass'
 import '../WelcomePage/welcome.sass'
+import toast from 'react-hot-toast';
 
 function SignUp() {
     const [formData, setFormData] = useState({
@@ -24,6 +25,7 @@ function SignUp() {
         try {
             await axios.post('http://127.0.0.1:8000/api/signup/', formData)
             navigate('/login')
+            toast.success(`Your account created successfuly, now you are ready to login `)
         } catch (error) {
             console.log(error)
             setErrors(error.response.data.error)

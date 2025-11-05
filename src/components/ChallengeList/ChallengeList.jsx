@@ -42,8 +42,7 @@ function ChallengeList() {
             <div className='header-challenges'>
                 <h1 className='page-title'>Challenges</h1>
                 <div>
-                    <ChallengeForm title="Add a Challenge" className={'add-challenge'}><IoIosAddCircle size={30} /></ChallengeForm>
-                    {/* <Link to={`/challenges/add`} </Link> */}
+                    <ChallengeForm title="Add a Challenge" className={'add-challenge'} getAllChallenges={getAllChallenges}><IoIosAddCircle size={30} /></ChallengeForm>
                     <Link to={'/challenges/join'} title="Search for Challenge"><FaSearch size={30} /></Link>
                 </div>
             </div>
@@ -51,10 +50,9 @@ function ChallengeList() {
 
             {/* on going Challenges  */}
             <div className='header-challenges sub'>
-                <h2 className='page-sub-title'>Ongoing</h2> {/* i will make it so i have multiple sections one on going one old one created by you ? */}
+                <h2 className='page-sub-title'>Ongoing</h2> 
                 <div>
-                    {/* <Link to={'/challenges/join'}><button>Join a Challenge</button></Link> */}
-                    <JoinChallenge className='join-btn'/>
+                    <JoinChallenge className='join-btn' />
                 </div>
             </div>
             <div className='challenges'>
@@ -71,9 +69,14 @@ function ChallengeList() {
                                 }
                             </>
                             :
-                            <h2>you have no challenges</h2>
+                            <>
+                                <h2>you have no challenges yet! </h2>
+                                <ChallengeForm title="Add a Challenge" getAllChallenges={getAllChallenges} >Create a challenge now!</ChallengeForm>
+                            </>
                         :
-                        <span class="loader"></span>
+                        <div id='loader-div'>
+                            <span className="loader"></span>
+                        </div>
                 }
             </div>
 
@@ -95,9 +98,14 @@ function ChallengeList() {
                                 }
                             </>
                             :
-                            <h2>you have no challenges</h2>
+                            <>
+                                <h2>none of your challenges has been done yet! </h2>
+                                <ChallengeForm title="Add a Challenge" >Create a challenge now!</ChallengeForm>
+                            </>
                         :
-                        <span class="loader"></span>
+                        <div id='loader-div'>
+                            <span className="loader"></span>
+                        </div>
 
                 }
             </div>

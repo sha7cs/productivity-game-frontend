@@ -5,7 +5,7 @@ import { authRequest } from '../../lib/auth'
 
 function HomePage() {
     const { user, setUser } = useContext(UserContext)
-    const [challengesList, setChallengeList] = useState([])  
+    const [challengesList, setChallengeList] = useState([])
     const [goalsCompleted, setGoalsCompleted] = useState([])
 
     async function getAllChallenges() {
@@ -27,7 +27,7 @@ function HomePage() {
         }
     }
     useEffect(() => {
-        if (user?.user?.id) { 
+        if (user?.user?.id) {
             getAllChallenges()
             getCompletedGoals()
         }
@@ -68,40 +68,54 @@ function HomePage() {
                     <div className='bottom-cards'>
                         <div className='bottom-card card'>
                             <h2>All Challenges</h2>
+                            <hr />
                             {
                                 challengesList.length
-                                ?
-                                <ul>
-                                {
-                                    challengesList.map(challenge => {
-                                        return (<li key={challenge.id}>{challenge.name}</li>)
-                                    })
-                                }
-                                </ul>
-                                :
-                                <span className="loader"></span>
+                                    ?
+                                    <ul>
+                                        {
+                                            challengesList.map((challenge, index) => {
+                                                return (
+                                                    <li key={challenge.id}>
+                                                        <span>{index + 1}</span>
+                                                        {challenge.name}
+                                                    </li>
+                                                )
+                                            })
+                                        }
+                                    </ul>
+                                    :
+                                    <div id='loader-div'>
+                                        <span className="loader"></span>
+                                    </div>
                             }
                         </div>
                         <div className='bottom-card card'>
                             <h2>Your Last 5 Completed Goals</h2>
+                            <hr />
                             {
                                 goalsCompleted.length
-                                ?
-                                <ul>
-                                {
-                                    goalsCompleted.map(goal => {
-                                        return (<li key={goal.id}>{goal.goal_detail.title}</li>)
-                                    })
-                                }
-                                </ul>
-                                :
-                                <span className="loader"></span>
+                                    ?
+                                    <ul>
+                                        {
+                                            goalsCompleted.map(goal => {
+                                                return (<li key={goal.id}>{goal.goal_detail.title}</li>)
+                                            })
+                                        }
+                                    </ul>
+                                    :
+                                    <div id='loader-div'>
+                                        <span className="loader"></span>
+                                    </div>
+
                             }
                         </div>
                     </div>
                 </>
                 :
-                <span className="loader"></span>
+                <div id='loader-div'>
+                    <span className="loader"></span>
+                </div>
             }
         </div>
     )

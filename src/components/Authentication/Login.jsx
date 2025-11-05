@@ -4,6 +4,7 @@ import { getUserFromToken, saveTokens } from '../../lib/auth'
 import { useNavigate } from 'react-router'
 import { UserContext } from '../../App'
 import './auth.sass'
+import toast from 'react-hot-toast';
 
 function Login() {
     const { user , setUser} = useContext(UserContext)
@@ -24,19 +25,16 @@ function Login() {
             const response = await axios.post(`http://127.0.0.1:8000/api/login/`, formData)
             saveTokens(response.data.access, response.data.refresh)
             setUser(getUserFromToken())
+            toast.success(`Welcome ${user?.user?.username || ''}!`)
             navigate('/challenges')
         } catch (error) {
-            setErrors(error.response.data.error)
+            const message = error.response?.data?.error || 'Login failed. Please try again.'
+            setErrors(message)
+            toast.error(message)
         }
     }
 
-    if (errors) {
-        return (
-            <div>
-                <h3>{errors}</h3>
-            </div>
-        )
-    }
+    if (user) toast.success(`Welcome ${user.user.username || ''}!`)
     return (
         <div className='auth-page'>
             <div className='circle1'></div>

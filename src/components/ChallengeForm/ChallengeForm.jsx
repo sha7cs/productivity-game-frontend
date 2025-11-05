@@ -6,25 +6,22 @@ import { UserContext } from '../../App'
 import CustomModal from '../CustomModal/CustomModal'
 import DeleteChallenge from './DeleteChallenge'
 import { MdDelete } from "react-icons/md";
+import toast from 'react-hot-toast';
 
-function ChallengeForm({children, challengeId , className, getSingleChallenge}) {
+function ChallengeForm({ children, challengeId, className, getSingleChallenge, getAllChallenges }) {
     const { user } = useContext(UserContext)
-    const [errors, setErrors] = useState('')
     const [Open, setOpen] = useState(false)
 
-
-    const navigate = useNavigate()
     const [formData, setFormData] = useState({
         name: '',
         description: '',
         start_date: '',
         end_date: '',
-        created_by: user.user ? user.user.id : '',
-        winner:null
+        created_by: user.user ? user.user?.id : '',
+        winner: null
     })
-
     async function getChallenge() {
-        const response = await authRequest({method:'get',url:`http://127.0.0.1:8000/api/challenges/${challengeId}/`})
+        const response = await authRequest({ method: 'get', url: `http://127.0.0.1:8000/api/challenges/${challengeId}/` })
         setFormData(response.data)
     }
 
@@ -46,21 +43,20 @@ function ChallengeForm({children, challengeId , className, getSingleChallenge}) 
                 await getSingleChallenge()
             } else {
                 response = await authRequest({ method: 'post', url: 'http://127.0.0.1:8000/api/challenges/', data: formData })
+                getAllChallenges()
             }
             if (response.status === 201 || response.status === 200) {
                 setOpen(false)
+                response.status === 200 ? toast.success('Challenge has been updated!') : toast.success('Challenge has been created!')
             }
         } catch (error) {
-            console.log(error)
-            setErrors(error.response.data.error)
+            // because the error is an array ob objects i had to do this to get more infrmation about the errors
+            const firstError = Object.keys(error.response.data)[0]+": " + Object.values(error.response.data)[0]
+            toast.error(firstError || 'failed. Please try again.')
         }
     }
     // when creating a challenge i want a pop to display the join code 
     // maybe for a certain time? or i should make it until user closes it ? will see
-
-    if (errors) {
-        return <h1>{errors}</h1>
-    }
     return (
         <>
             <button className={className} onClick={() => setOpen(true)}>{children}</button>
@@ -90,8 +86,8 @@ function ChallengeForm({children, challengeId , className, getSingleChallenge}) 
                         <label htmlFor="end_date">End Date</label>
                         <input value={formData.end_date} onChange={handleChange} type="date" name="end_date" id="end_date" />
                     </div>
-                    { challengeId ?
-                        <DeleteChallenge challengeId={challengeId} style={{backgroundColor: 'red', color: 'white' }}><MdDelete size={20} /></DeleteChallenge>
+                    {challengeId ?
+                        <DeleteChallenge challengeId={challengeId} style={{ backgroundColor: 'red', color: 'white' }}><MdDelete size={20} /></DeleteChallenge>
                         :
                         ''
                     }
