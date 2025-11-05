@@ -1,4 +1,3 @@
-import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router'
 import { authRequest } from '../../lib/auth'
@@ -7,8 +6,9 @@ import DeleteGoal from './DeleteGoal'
 import { MdDelete } from "react-icons/md";
 import toast from 'react-hot-toast';
 
-function GoalForm({ challengeId, goalId, className, children }) {
+function GoalForm({ challengeId, goalId, className, children, handleOnComplete }) {
     const [Open, setOpen] = useState(false)
+    const [showDelete, setShowDelete] = useState(false)
 
     const [formData, setFormData] = useState({
         title: '',
@@ -21,7 +21,13 @@ function GoalForm({ challengeId, goalId, className, children }) {
         const response = await authRequest({ method: 'get', url: `http://127.0.0.1:8000/api/challenges/${challengeId}/goals/${goalId}/` })
         setFormData(response.data)
     }
-
+    function openDelete() {
+        setOpen(false)
+        setShowDelete(true)
+    }
+    function closeDelete() {
+        setShowDelete(false)
+    }
     useEffect(() => {
         if (goalId) {
             getGoal()
@@ -42,11 +48,12 @@ function GoalForm({ challengeId, goalId, className, children }) {
             }
             if (response.status === 201 || response.status === 200) {
                 setOpen(false)
+                handleOnComplete()
                 response.status === 200 ? toast.success('Goal has been updated!') : toast.success('Goal has been created!')
             }
         } catch (error) {
             console.log(error)
-            const firstError = Object.keys(error.response?.data)[0]+": " + Object.values(error.response?.data)[0]
+            const firstError = Object.keys(error.response?.data)[0] + ": " + Object.values(error.response?.data)[0]
             toast.error(firstError || 'failed. Please try again.')
         }
     }
@@ -54,6 +61,7 @@ function GoalForm({ challengeId, goalId, className, children }) {
     return (
         <>
             <button className={className} onClick={() => setOpen(true)}>{children}</button>
+            {showDelete && (<DeleteGoal handleOnComplete={handleOnComplete} show={showDelete} onClose={closeDelete} challengeId={challengeId} goalId={goalId}></DeleteGoal>)}
 
             <CustomModal isOpen={Open} onClose={() => setOpen(false)}>
                 <div className='header'>
@@ -75,7 +83,21 @@ function GoalForm({ challengeId, goalId, className, children }) {
                         <label htmlFor="description">description</label>
                         <textarea value={formData.description} onChange={handleChange} type="text" name="description" id="description" />
                     </div>
-                    <button type='submit'>{goalId ? "Edit Goal" : "Add Goal"}</button>
+                    <div id='modal-form-actions'>
+                        {goalId ?
+                            <button type='submit'
+                                style={{ backgroundColor: 'red' }}
+                                onClick={() => {
+                                    setOpen(false)
+                                    openDelete()
+                                }}>
+                                <MdDelete />
+                            </button>
+                            :
+                            null
+                        }
+                        <button type='submit'>{goalId ? "Edit Goal" : "Add Goal"}</button>
+                    </div>
                 </form>
             </CustomModal>
         </>

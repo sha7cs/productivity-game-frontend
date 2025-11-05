@@ -15,7 +15,7 @@ import GoalList from '../GoalList/GoalList'
 import { IoMdMore } from "react-icons/io";
 import ChallengeInfo from '../ChallengeInfo/ChallengeInfo'
 
-function ChallengeDetail({ }) {
+function ChallengeDetail() {
     const { user, getUserProfile } = useContext(UserContext)
     const { challengeId } = useParams()
     const navigate = useNavigate();
