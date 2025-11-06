@@ -46,11 +46,9 @@ function ChallengeCard({ challenge, className }) {
                         }
 
                     </h3>
-                    <h3 id='user-rank'>You Rank 2
-                        {/* i will make the logic to get the user rank later */}
-                    </h3>
+                    
                     <p id='challenge-description'>{challenge.description}</p>
-                    <p>{challenge?.created_by === member.user? 'created by you': ''}</p>
+                    <p style={{color:'#007aff'}}>{challenge?.created_by === member.user? 'created by you': ''}</p>
                 </div>
             </Link>
         </div>

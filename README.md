@@ -1,16 +1,24 @@
-# React + Vite
+# Project Descriptions
+- ChallengeHub is a solo project that showcases my skills in building full-stack web applications. It allows users to create challenges and share them with friends, who can then add shared goals and compete to complete the most. Each goal has a specific number of points assigned by the challenge creator, making the experience engaging and competitive. The backend was developed using Django REST Framework, while the frontend was built with React.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+- Main pages: 
+ - homepage, display some analysis of user performance
+ - challenges page, displays all the challenges as cards, seperated by activity
+ - challenge detail, has the details of a single challenge and displays all its goals, and the rank of participants.
 
-Currently, two official plugins are available:
+# Tech stack
+- React (frontend)
+- Django REST Framework (backend)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-## React Compiler
+# Backend Repo Link
+- https://github.com/sha7cs/productivity-game-backend
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+# Installation Instructions as Needed (docker)
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+# IceBox Features
+- Making users be able to mark a goal completed only once a day 
+- search for a challenge 
+- user profile page 
+- upload proof of completed goal 
+- send notiofication when something happens
