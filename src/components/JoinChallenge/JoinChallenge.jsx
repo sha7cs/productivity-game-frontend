@@ -46,7 +46,7 @@ function JoinChallenge({className}) {
             </div>
             <form onSubmit={handleSubmit} className='content-modal'>
                 <div className='join-code-div'>
-                    <label htmlFor="join-code">Enter the join code of desired challenge</label>
+                    <h2 htmlFor="join-code">Enter the challenge code to join 😁</h2>
                     <input value={joinCode} onChange={handleChange} type="number" name="join-code" id="join-code" />
                 </div>
                 <button type='submit'>Join</button>

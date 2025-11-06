@@ -12,7 +12,7 @@ function LogoutButton({setUser, className}) {
     function handleLogout(){
         clearTokens()
         setUser(null)
-        navigate('/login')
+        navigate('/')
         toast.success('Logout successfull!')
     }
   return (

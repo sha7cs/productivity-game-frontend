@@ -6,7 +6,7 @@ import { UserContext } from '../../App';
 import { authRequest } from '../../lib/auth';
 
 function GoalList({ getSingleChallenge, challengeId, challenge }) {
-    const { user, getUserProfile } = useContext(UserContext)
+    const { getUserProfile } = useContext(UserContext)
     const [goalsCompleted, setGoalsCompleted] = useState([]) // to make the goals user completed at the bottom of the list
 
     async function getCompletedGoals() {
@@ -23,8 +23,8 @@ function GoalList({ getSingleChallenge, challengeId, challenge }) {
         await getCompletedGoals()
     }
     useEffect(() => {
-        getCompletedGoals()
-    })
+        handleOnComplete()
+    },[])
     return (
         <div className='goals'>
             <div className='title'>
@@ -39,17 +39,19 @@ function GoalList({ getSingleChallenge, challengeId, challenge }) {
                 challenge.goals.length
                     ?
                     <ul>
-                        {//(<SingleGoal goal={goal} key={goal.id} handleOnComplete={handleOnComplete} completed={goalsCompleted.some(g => g.goal_detail.id === goal.id) ? 'completed' : ''} />)
+                        {
                             [...challenge.goals]
                                 .sort((a, b) => {
-                                    const aCompleted = goalsCompleted.some(g => g.goal_detail.id === a.id);
-                                    const bCompleted = goalsCompleted.some(g => g.goal_detail.id === b.id);
+                                    const aCompleted = goalsCompleted.some(g => g.goal_detail.id === a.id)
+                                    const bCompleted = goalsCompleted.some(g => g.goal_detail.id === b.id)
 
-                                    if (aCompleted && !bCompleted) return 1; // a after b
-                                    if (!aCompleted && bCompleted) return -1;  // b after a
+                                    if (aCompleted && !bCompleted) return 1 // a after b
+                                    if (!aCompleted && bCompleted) return -1  // b after a
                                     return 0; // same group // so this sortes them to make the uncompleted ones first in the list so they are displayed at the top
                                 }).map(goal => (
-                                    (<SingleGoal goal={goal} key={goal.id} handleOnComplete={handleOnComplete} completed={goalsCompleted.some(g => g.goal_detail.id === goal.id) ? 'completed' : ''} />)
+                                    (<SingleGoal goal={goal} key={goal.id} 
+                                        handleOnComplete={handleOnComplete} 
+                                        completed={goalsCompleted.some(g => g.goal_detail.id === goal.id) ? 'completed' : ''} />)
                                 ))
                         }
                     </ul>

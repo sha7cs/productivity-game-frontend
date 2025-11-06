@@ -8,8 +8,6 @@ import toast from 'react-hot-toast'
 
 function DeleteGoal({ handleOnComplete, challengeId, goalId, show, onClose }) {
     const [goal, setGoal] = useState({})
-    const navigate = useNavigate()
-    const [errors, setErrors] = useState('')
     const [open, setOpen] = useState(show)
 
     useEffect(() => {
@@ -36,13 +34,6 @@ function DeleteGoal({ handleOnComplete, challengeId, goalId, show, onClose }) {
         }
     }
 
-    if (errors) {
-        return (
-            <div>
-                <h3>{errors}</h3>
-            </div>
-        )
-    }
     return (
         <div>
             <CustomModal isOpen={open} onClose={() => {

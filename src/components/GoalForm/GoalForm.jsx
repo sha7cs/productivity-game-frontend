@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router'
 import { authRequest } from '../../lib/auth'
 import CustomModal from '../CustomModal/CustomModal'
 import DeleteGoal from './DeleteGoal'
 import { MdDelete } from "react-icons/md";
 import toast from 'react-hot-toast';
+import { UserContext } from '../../App'
 
 function GoalForm({ challengeId, goalId, className, children, handleOnComplete }) {
     const [Open, setOpen] = useState(false)
@@ -21,19 +22,7 @@ function GoalForm({ challengeId, goalId, className, children, handleOnComplete }
         const response = await authRequest({ method: 'get', url: `http://127.0.0.1:8000/api/challenges/${challengeId}/goals/${goalId}/` })
         setFormData(response.data)
     }
-    function openDelete() {
-        setOpen(false)
-        setShowDelete(true)
-    }
-    function closeDelete() {
-        setShowDelete(false)
-    }
-    useEffect(() => {
-        if (goalId) {
-            getGoal()
-        }
-    }, [])
-
+    
     function handleChange(event) {
         setFormData({ ...formData, [event.target.name]: event.target.value })
     }
@@ -45,6 +34,12 @@ function GoalForm({ challengeId, goalId, className, children, handleOnComplete }
                 response = await authRequest({ method: 'put', url: `http://127.0.0.1:8000/api/challenges/${challengeId}/goals/${goalId}/`, data: formData })
             } else {
                 response = await authRequest({ method: 'post', url: `http://127.0.0.1:8000/api/challenges/${challengeId}/goals/`, data: formData })
+                setFormData({
+                    title: '',
+                    points: 0,
+                    description: '',
+                    challenge: challengeId
+                })
             }
             if (response.status === 201 || response.status === 200) {
                 setOpen(false)
@@ -57,7 +52,20 @@ function GoalForm({ challengeId, goalId, className, children, handleOnComplete }
             toast.error(firstError || 'failed. Please try again.')
         }
     }
-
+    
+    useEffect(() => {
+        if (goalId) {
+            getGoal()
+        }
+    }, [])
+    // for the delete button in edit modal
+    function openDelete() {
+        setOpen(false)
+        setShowDelete(true)
+    }
+    function closeDelete() {
+        setShowDelete(false)
+    }
     return (
         <>
             <button className={className} onClick={() => setOpen(true)}>{children}</button>

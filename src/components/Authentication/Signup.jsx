@@ -44,7 +44,7 @@ function SignUp() {
             <div className='circle2'></div>
             <div className='circle3'></div>
             <div className='circle4'></div>
-            <h1>Sign Up</h1>
+            <h1 className='header'>Sign Up <span class="loader-eyes"></span></h1>
             <form onSubmit={handleSubmit} className='auth-form shadow-pop-br'>
                 <div className='email-div'>
                     <label htmlFor="email">Email</label>

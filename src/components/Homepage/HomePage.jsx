@@ -12,7 +12,7 @@ function HomePage({ challenges }) {
     const { user, setUser } = useContext(UserContext)
     const [goalsCompleted, setGoalsCompleted] = useState(null)
     const [challengesList, setChallengeList] = useState(null)
-    console.log(goalsCompleted)
+
     async function getCompletedGoals() {
         try {
             const response = await authRequest({ method: 'get', url: `http://127.0.0.1:8000/api/challenges/goals/completed/` })
@@ -35,7 +35,7 @@ function HomePage({ challenges }) {
         const completionDate = new Date(dateString)
         const today = new Date()
         const diffTime = today - completionDate
-        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24))
+        const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24))
 
         if (diffDays === 0) {
             return "Today"
@@ -145,7 +145,7 @@ function HomePage({ challenges }) {
                                                         <div className='completed-goal-item'>
                                                             <li key={goal.id}>
                                                                 {goal.goal_detail.title}
-                                                                <p>{challenges.find(ch => ch.id==goal.goal_detail.challenge).name}</p>
+                                                                <p>{challenges?.find(ch => ch.id==goal.goal_detail.challenge).name}</p>
                                                             </li>
                                                             <span className='date'>{getDaysAgo(goal.completion_date)}</span>
                                                         </div>

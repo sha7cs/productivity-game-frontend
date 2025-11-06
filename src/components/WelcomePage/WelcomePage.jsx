@@ -12,7 +12,7 @@ function WelcomePage() {
         <GiOnTarget size={70} />
       </h1>
 
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit ipsum expedita accusamus eveniet,orem excepturi!</p>
+      <p>Create fun challenges, share goals with friends, and compete to see who stays most productive.</p>
       <div className='actions'>
         <Link to={'/signup'}><button className='signup-btn'>Signup</button> </Link>
         <Link to={'/login'}><button className='login-btn'>Login</button></Link>

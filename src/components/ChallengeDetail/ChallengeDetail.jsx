@@ -12,7 +12,6 @@ import { useContext } from 'react'
 import ChallengeForm from '../ChallengeForm/ChallengeForm'
 import DeleteChallenge from '../ChallengeForm/DeleteChallenge'
 import GoalList from '../GoalList/GoalList'
-import { IoMdMore } from "react-icons/io";
 import ChallengeInfo from '../ChallengeInfo/ChallengeInfo'
 
 function ChallengeDetail() {
@@ -95,7 +94,7 @@ function ChallengeDetail() {
                     </div>
 
                     <div className='challenge-detail-card'>
-                        {/* i need to make a component for a single goal? */}
+
                         <GoalList getSingleChallenge={getSingleChallenge} challenge={challenge} challengeId={challengeId}></GoalList>
                         
                         <div className='challenge-details'>
@@ -123,14 +122,6 @@ function ChallengeDetail() {
                             {/* i want to make a page that will list all the goals you and the members completed based on date  */}
                             <Link to='/future'>History</Link>
 
-                            {/* just for now i will make it hidden but i will create a modal for ot later */}
-                            <div className='challenge-info' hidden>
-                                <h3>{challenge.description}</h3>
-                                <h3>Join Code : {challenge.join_code}</h3>
-                                <h3>created by you</h3>
-                                <h3>{challenge.winner === null ? "no winner yet" : challenge.winner.first_name}</h3>
-                                <h3>{challenge.is_active ? 'is active' : 'this challenge has ended'}</h3>
-                            </div>
                         </div>
                     </div>
                 </>

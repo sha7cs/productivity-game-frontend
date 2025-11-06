@@ -1,19 +1,14 @@
 import axios from 'axios'
 import React, { useContext, useEffect } from 'react'
 import { useState } from 'react'
-import { Link } from 'react-router'
-import { authRequest } from '../../lib/auth'
 import './challenge-list.sass'
 import { IoIosAddCircle } from "react-icons/io";
-import { FaSearch } from "react-icons/fa";
 import ChallengeCard from '../ChallengeCard/ChallengeCard'
-import { UserContext } from '../../App'
 import '../WelcomePage/welcome.sass'
 import JoinChallenge from '../JoinChallenge/JoinChallenge'
 import ChallengeForm from '../ChallengeForm/ChallengeForm'
 
 function ChallengeList({ challenges }) {
-    const { user } = useContext(UserContext)
     const [challengeList, setChallengeList] = useState(null) // not an empty array so that when its loading it displays 'loading' for user
     const [inActiveChallenges, setInactiveChallenges] = useState(null)
 
@@ -44,7 +39,6 @@ function ChallengeList({ challenges }) {
                 <h1 className='page-title'>Challenges</h1>
                 <div>
                     <ChallengeForm title="Add a Challenge" className={'add-challenge'}><IoIosAddCircle size={34} /></ChallengeForm>
-                    {/* <Link to={'/challenges/join'} title="Search for Challenge"><FaSearch size={30} /></Link> // will do it in the future*/}
                 </div>
             </div>
             <hr />

@@ -34,7 +34,6 @@ function App() {
       setUser(response.data)
     } catch (errors) {
       console.log(errors)
-      toast.error(message);
     }
   }
   async function fetchChallenges() {

@@ -21,7 +21,6 @@ function ChallengeCard({ challenge, className }) {
                             {
                                 challenge.members.map(member => {
                                     return `${member.member_info.first_name}, `
-                                    // will see how to access the username instead of the id
                                 })
                             }
                         </>
@@ -37,10 +36,7 @@ function ChallengeCard({ challenge, className }) {
                             </>
                             :
                             <div title='your points'>
-                                {member ? member.total_points : 0
-                                    // if no value is found return 0 it wont happen in actual logic but because some of my data 
-                                    // is not modified to most recent structure it gave me an error so i did this for better handleing
-                                }
+                                {member ? member.total_points : 0}
                                 <GrMoney style={{ padding: '0.3rem' }} size={25}/>
                             </div>
                         }
@@ -48,7 +44,7 @@ function ChallengeCard({ challenge, className }) {
                     </h3>
                     
                     <p id='challenge-description'>{challenge.description}</p>
-                    <p style={{color:'#007aff'}}>{challenge?.created_by === member.user? 'created by you': ''}</p>
+                    <p style={{color:'#007aff'}}>{challenge?.created_by === member?.user? 'created by you': ''}</p>
                 </div>
             </Link>
         </div>
