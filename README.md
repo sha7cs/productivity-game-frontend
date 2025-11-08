@@ -14,7 +14,6 @@
 # Backend Repo Link
 - https://github.com/sha7cs/productivity-game-backend
 
-# Installation Instructions as Needed (docker)
 
 # IceBox Features
 - Making users be able to mark a goal completed only once a day 
